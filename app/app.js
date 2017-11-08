@@ -1,6 +1,6 @@
 import React, { Component } from 'react'
 import { render } from 'react-dom'
-import CompetitorCard from './components/competitorCard/competitorCard'
+import MatchCard from './components/matchCard/matchCard'
 
 class App extends Component {
 	constructor() {
@@ -10,7 +10,7 @@ class App extends Component {
 	render() {
 		return(
 			<div className="row">
-				<CompetitorCard />
+				<MatchCard />
 			</div>
 		)
 	}

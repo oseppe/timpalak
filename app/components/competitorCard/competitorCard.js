@@ -5,9 +5,11 @@ import CompetitorScore from '../competitorScore/competitorScore'
 class CompetitorCard extends Component {
 	render() {
 		return(
-			<div className="row">
-				<CompetitorName name="Joseph" />
-				<CompetitorScore score="12" />
+			<div className="row" style={{
+				margin: 0
+			}}>
+				<CompetitorName name={this.props.name} />
+				<CompetitorScore score={this.props.score} />
 			</div>
 		)
 	}
