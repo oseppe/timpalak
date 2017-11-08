@@ -6,7 +6,7 @@ class CompetitorCard extends Component {
 	render() {
 		return(
 			<div className="row" style={{
-				margin: 0
+				margin: 0,
 			}}>
 				<CompetitorName name={this.props.name} />
 				<CompetitorScore score={this.props.score} />
