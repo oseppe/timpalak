@@ -1,6 +1,6 @@
 import React, { Component } from 'react'
 import { render } from 'react-dom'
-import MatchCard from './components/matchCard/matchCard'
+import BracketCard from './components/bracketCard/bracketCard'
 
 class App extends Component {
 	constructor() {
@@ -8,9 +8,25 @@ class App extends Component {
 	}
 
 	render() {
+		const competitors = 32;
+
+		const bracketCount = 32 / 4;
+
+		const brackets = [];
+
+		console.log('here');
+		console.log(bracketCount);
+
+		for (let i = 0; i < bracketCount; i++) {
+			brackets.push(<BracketCard />);
+			console.log(i);
+			console.log(brackets);
+			console.log('------------');
+		}
+
 		return(
-			<div className="row">
-				<MatchCard />
+			<div>
+				{ brackets }
 			</div>
 		)
 	}
