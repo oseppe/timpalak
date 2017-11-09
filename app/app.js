@@ -2,6 +2,7 @@ import React, { Component } from 'react'
 import { render } from 'react-dom'
 import BracketCard from './components/bracketCard/bracketCard'
 import MatchCard from './components/matchCard/matchCard'
+import { buildCompetitionData, computeBracketCount } from './utility/competitionDataParser'
 
 class App extends Component {
 	constructor() {
@@ -9,40 +10,67 @@ class App extends Component {
 	}
 
 	render() {
-		const competitors = 16;
+		const competitors = [
+			'Alistar', 'Blitzcrank', 'Janna', 'Karma', 'Leona', 'Lulu', 'Morgana', 'Nami', 
+			'Nautilus', 'Rakan', 'Sona', 'Soraka', 'Taric', 'Thresh',  'Zilean', 'Zyra'
+		];
 
-		const levelsCount = Math.log2(competitors);
-		const bracketCount = competitors / 4;
-		const matchesCount = competitors - 1;
+		const competitorsCount = competitors.length;
 
-		const levelBuilder = (level) => {
+		const levelsCount = Math.log2(competitorsCount);
+		const bracketCount = competitorsCount / 4;
+		const matchesCount = competitorsCount - 1;
 
-			const bracketCount = 2 ** (level - 2);
-
-			const brackets = Array(bracketCount).fill().map((item, index) => <BracketCard key={index} />);
-
-			return (
-				<div className="col m3 l2">
-					{ brackets }
-				</div>
-			);
-		}
-
+		const competitionData = buildCompetitionData(competitors);
+		
 		const levels = [];
 
-		for (let level = levelsCount; level > 1; level--) {
-			levels.push(levelBuilder(level));
+		// build first level
+		const buildFirstLevel = (competitionData) => {
+			const bracketCount = computeBracketCount(levelsCount);
+			const brackets = [];
+
+			let bracketCompetitors = competitionData.slice(0, 4);
+
+			brackets.push(<BracketCard bracketCompetitors={bracketCompetitors} />)
+
+			console.log(bracketCount);
+
+			return brackets;
 		}
 
-		levels.push( 
-			<div className="col m3 l2">
-				<MatchCard />
-			</div> 
-		);
+
+
+		const firstLevel = buildFirstLevel(competitionData);
+
+		// const levelBuilder = (level) => {
+
+		// 	const bracketCount = computeBracketCount(level);
+
+		// 	const brackets = Array(bracketCount).fill().map((item, index) => <BracketCard key={index} />);
+
+		// 	return (
+		// 		<div className="col m3 l2">
+		// 			{ brackets }
+		// 		</div>
+		// 	);
+		// }
+
+		
+
+		// for (let level = levelsCount; level > 1; level--) {
+		// 	levels.push(levelBuilder(level));
+		// }
+
+		// levels.push( 
+		// 	<div className="col m3 l2">
+		// 		<MatchCard />
+		// 	</div> 
+		// );
 
 		return(
 			<div className="row">
-				{ levels }
+				{ firstLevel }
 			</div>
 		)
 	}
