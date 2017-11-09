@@ -26,22 +26,28 @@ class App extends Component {
 		const levels = [];
 
 		// build first level
-		const buildFirstLevel = (competitionData) => {
-			const bracketCount = computeBracketCount(levelsCount);
+		const buildFirstLevel = (competitionData, level) => {
+			const bracketCount = computeBracketCount(level);
 			const brackets = [];
 
-			let bracketCompetitors = competitionData.slice(0, 4);
+			let sliceStart = 0;
+			let sliceEnd = 4;
 
-			brackets.push(<BracketCard bracketCompetitors={bracketCompetitors} />)
+			for (let i = 0; i < bracketCount; i++) {
+				let bracketCompetitors = competitionData.slice(sliceStart, sliceEnd);
 
-			console.log(bracketCount);
+				brackets.push(<BracketCard bracketCompetitors={bracketCompetitors} />)
+
+				sliceStart = sliceEnd;
+				sliceEnd = sliceEnd + 4;
+			}
 
 			return brackets;
 		}
 
 
 
-		const firstLevel = buildFirstLevel(competitionData);
+		const firstLevel = buildFirstLevel(competitionData, levelsCount);
 
 		// const levelBuilder = (level) => {
 
