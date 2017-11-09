@@ -5,7 +5,7 @@ class MatchCard extends Component {
 	render() {
 		return(
 			<div className="row" style={{
-				width: "200px",
+				width: "150px",
 			}}>
 				<div className="col s1" style={{
 					margin: 0,

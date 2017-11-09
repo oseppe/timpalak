@@ -1,6 +1,7 @@
 import React, { Component } from 'react'
 import { render } from 'react-dom'
 import BracketCard from './components/bracketCard/bracketCard'
+import MatchCard from './components/matchCard/matchCard'
 
 class App extends Component {
 	constructor() {
@@ -8,25 +9,40 @@ class App extends Component {
 	}
 
 	render() {
-		const competitors = 32;
+		const competitors = 16;
 
-		const bracketCount = 32 / 4;
+		const levelsCount = Math.log2(competitors);
+		const bracketCount = competitors / 4;
+		const matchesCount = competitors - 1;
 
-		const brackets = [];
+		const levelBuilder = (level) => {
 
-		console.log('here');
-		console.log(bracketCount);
+			const bracketCount = 2 ** (level - 2);
 
-		for (let i = 0; i < bracketCount; i++) {
-			brackets.push(<BracketCard />);
-			console.log(i);
-			console.log(brackets);
-			console.log('------------');
+			const brackets = Array(bracketCount).fill().map((item, index) => <BracketCard key={index} />);
+
+			return (
+				<div className="col m3 l2">
+					{ brackets }
+				</div>
+			);
 		}
 
+		const levels = [];
+
+		for (let level = levelsCount; level > 1; level--) {
+			levels.push(levelBuilder(level));
+		}
+
+		levels.push( 
+			<div className="col m3 l2">
+				<MatchCard />
+			</div> 
+		);
+
 		return(
-			<div>
-				{ brackets }
+			<div className="row">
+				{ levels }
 			</div>
 		)
 	}

@@ -3,7 +3,7 @@ import React, { Component } from 'react'
 class CompetitorScore extends Component {
 	render() {
 		return(
-			<div className="col s2" style={{
+			<div className="col s3" style={{
 				backgroundColor: "#d35400", 
 				padding: "5px",
 				textAlign: "center"
