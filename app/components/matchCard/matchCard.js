@@ -18,8 +18,10 @@ class MatchCard extends Component {
 					borderRadius: "10px",
 					padding: 0,
 				}}>
-					<CompetitorCard name={this.props.matchCompetitors[0].name} score={this.props.matchCompetitors[0].score} />
-					<CompetitorCard name={this.props.matchCompetitors[1].name} score={this.props.matchCompetitors[1].score} />
+					<CompetitorCard competitor={ this.props.matchCompetitors[0] } 
+						onCompetitorCardHover={ this.props.onCompetitorCardHover }/>
+					<CompetitorCard competitor={ this.props.matchCompetitors[1] } 
+						onCompetitorCardHover={ this.props.onCompetitorCardHover }/>
 				</div>
 			</div>
 		)

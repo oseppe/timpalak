@@ -7,25 +7,56 @@ import { buildCompetitionData, buildLevels, computeBracketCount } from './utilit
 class App extends Component {
 	constructor() {
 		super();
-	}
 
-	render() {
 		const competitors = [
 			'Alistar', 'Blitzcrank', 'Janna', 'Karma', 'Leona', 'Lulu', 'Morgana', 'Nami', 
 			'Nautilus', 'Rakan', 'Sona', 'Soraka', 'Taric', 'Thresh',  'Zilean', 'Zyra'
 		];
 
-		const competitorsCount = competitors.length;
+		const competitionData = buildCompetitionData(competitors);
+		
+		const indexJanna = competitors.indexOf('Janna');
+		const secondLevel = indexJanna + competitors.length - 1;
+		competitionData[secondLevel].name = 'Janna';
+		const thirdLevel = secondLevel + (competitors.length / 2) - 1;
+		competitionData[thirdLevel].name = 'Janna';
+
+		this.state = {
+			competitionData,
+			competitors,
+		};
+
+		this.onCompetitorCardHover = this.onCompetitorCardHover.bind(this);
+	}
+
+	onCompetitorCardHover(competitorName) {
+		const oldCompetitionData = this.state.competitionData;
+
+		const competitionData = oldCompetitionData.map((item, index) => {
+			if (item.name !== '' && item.name === competitorName) {
+				item.hover = true;
+			}
+			
+			return item;
+		});
+
+		this.setState({competitionData});
+
+		console.log(this.state.competitionData);
+	}
+
+	render() {
+		const competitorsCount = this.state.competitors.length;
 
 		const levelsCount = Math.log2(competitorsCount);
 		const bracketCount = competitorsCount / 4;
 		const matchesCount = competitorsCount - 1;
 
-		const competitionData = buildCompetitionData(competitors);
+		const competitionData = this.state.competitionData;
 		
 		const levels = [];
 
-		levels.push(buildLevels(competitionData, levelsCount));
+		levels.push(buildLevels(competitionData, levelsCount, this.onCompetitorCardHover));
 
 		const finalMatchCompetitors = [competitionData[competitionData.length - 2], competitionData[competitionData.length - 1]];
 		

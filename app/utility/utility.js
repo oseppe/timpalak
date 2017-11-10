@@ -14,6 +14,7 @@ function buildCompetitionData(competitors) {
 		competitorData.name = competitor;
 		competitorData.score = 0;
 		competitorData.matchNumber = currentMatch;
+		competitorData.hover = false;
 
 		matchContestantCounter++;
 
@@ -35,7 +36,8 @@ function buildCompetitionData(competitors) {
 		competitorData.name = '';
 		competitorData.score = 0;
 		competitorData.matchNumber = currentMatch;
-
+		competitorData.hover = false;
+		
 		matchContestantCounter++;
 
 		if(matchContestantCounter > 2) {
@@ -55,7 +57,7 @@ function computeBracketCount(level) {
 	return 2 ** exponent;
 }
 
-function buildLevels(competitionData, levelsCount) {
+function buildLevels(competitionData, levelsCount, onCompetitorCardHover) {
 	const levels = [];
 
 	let sliceStart = 0;
@@ -68,7 +70,7 @@ function buildLevels(competitionData, levelsCount) {
 		for (let i = 0; i < bracketCount; i++) {
 			let bracketCompetitors = competitionData.slice(sliceStart, sliceEnd);
 
-			brackets.push(<BracketCard bracketCompetitors={bracketCompetitors} />)
+			brackets.push(<BracketCard bracketCompetitors={bracketCompetitors} onCompetitorCardHover={onCompetitorCardHover} />)
 
 			sliceStart = sliceEnd;
 			sliceEnd = sliceEnd + 4;
