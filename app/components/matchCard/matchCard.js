@@ -7,13 +7,13 @@ class MatchCard extends Component {
 			<div className="row" style={{
 				width: "150px",
 			}}>
-				<div className="col s1" style={{
+				<div className="col s2" style={{
 					margin: 0,
 					padding: 0,
 				}}>
 					{this.props.matchNumber}
 				</div>
-				<div className="col s11" style={{
+				<div className="col s10" style={{
 					backgroundColor: "#34495e",
 					borderRadius: "10px",
 					padding: 0,
