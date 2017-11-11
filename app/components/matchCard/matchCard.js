@@ -19,9 +19,11 @@ class MatchCard extends Component {
 					padding: 0,
 				}}>
 					<CompetitorCard competitor={ this.props.matchCompetitors[0] } 
-						onCompetitorCardHover={ this.props.onCompetitorCardHover }/>
+						onCompetitorCardHover={ this.props.onCompetitorCardHover }
+						onCompetitorMouseLeave={this.props.onCompetitorMouseLeave} />
 					<CompetitorCard competitor={ this.props.matchCompetitors[1] } 
-						onCompetitorCardHover={ this.props.onCompetitorCardHover }/>
+						onCompetitorCardHover={ this.props.onCompetitorCardHover }
+						onCompetitorMouseLeave={this.props.onCompetitorMouseLeave} />
 				</div>
 			</div>
 		)

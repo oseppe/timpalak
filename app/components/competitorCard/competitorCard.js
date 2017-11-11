@@ -9,23 +9,32 @@ class CompetitorCard extends Component {
 		this.state = { backgroundColor: '' };
 
 		this.handleOnHover = this.handleOnHover.bind(this);
+		this.handleOnMouseLeave = this.handleOnMouseLeave.bind(this);
+	}
+
+	componentWillReceiveProps() {
+		const backgroundColor = this.props.competitor.hover ? 'red' : '';
+		this.setState({ backgroundColor });
 	}
 
 	handleOnHover() {
 		this.props.onCompetitorCardHover(this.props.competitor.name);
+	}
 
-		const backgroundColor = this.props.shouldHighlight ? 'red' : '';
-
-		this.setState({backgroundColor});
+	handleOnMouseLeave() {
+		this.props.onCompetitorMouseLeave(this.props.competitor.name);
 	}
 
 	render() {
 		return(
-			<div className="row" onMouseOver={this.handleOnHover} style={{
+			<div className="row" 
+				onMouseOver={this.handleOnHover} 
+				onMouseLeave={this.handleOnMouseLeave}
+				style={{
 				margin: 0,
 			}}>
-				<CompetitorName name={this.props.competitor.name} shouldHighlight={this.props.competitor.hover} backgroundColor={this.state.backgroundColor} />
-				<CompetitorScore score={this.props.competitor.score} shouldHighlight={this.props.competitor.hover} backgroundColor={this.state.backgroundColor} />
+				<CompetitorName name={this.props.competitor.name} backgroundColor={this.state.backgroundColor} />
+				<CompetitorScore score={this.props.competitor.score} backgroundColor={this.state.backgroundColor} />
 			</div>
 		)
 	}

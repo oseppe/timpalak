@@ -27,6 +27,7 @@ class App extends Component {
 		};
 
 		this.onCompetitorCardHover = this.onCompetitorCardHover.bind(this);
+		this.onCompetitorCardMouseLeave = this.onCompetitorCardMouseLeave.bind(this);
 	}
 
 	onCompetitorCardHover(competitorName) {
@@ -41,8 +42,20 @@ class App extends Component {
 		});
 
 		this.setState({competitionData});
+	}
 
-		console.log(this.state.competitionData);
+	onCompetitorCardMouseLeave(competitorName) {
+		const oldCompetitionData = this.state.competitionData;
+
+		const competitionData = oldCompetitionData.map((item, index) => {
+			if (item.name !== '' && item.name === competitorName) {
+				item.hover = false;
+			}
+			
+			return item;
+		});
+
+		this.setState({competitionData});
 	}
 
 	render() {
@@ -56,7 +69,7 @@ class App extends Component {
 		
 		const levels = [];
 
-		levels.push(buildLevels(competitionData, levelsCount, this.onCompetitorCardHover));
+		levels.push(buildLevels(competitionData, levelsCount, this.onCompetitorCardHover, this.onCompetitorCardMouseLeave));
 
 		const finalMatchCompetitors = [competitionData[competitionData.length - 2], competitionData[competitionData.length - 1]];
 		

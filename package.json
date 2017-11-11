@@ -4,6 +4,9 @@
   "main": "index.js",
   "repository": "https://github.com/oseppe/timpalak.git",
   "author": "montalbo",
+  "scripts": {
+    "start": "webpack-dev-server --progress --colors -w"
+  },
   "license": "MIT",
   "devDependencies": {
     "babel-core": "^6.26.0",

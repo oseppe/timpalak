@@ -57,7 +57,7 @@ function computeBracketCount(level) {
 	return 2 ** exponent;
 }
 
-function buildLevels(competitionData, levelsCount, onCompetitorCardHover) {
+function buildLevels(competitionData, levelsCount, onCompetitorCardHover, onCompetitorMouseLeave) {
 	const levels = [];
 
 	let sliceStart = 0;
@@ -70,7 +70,7 @@ function buildLevels(competitionData, levelsCount, onCompetitorCardHover) {
 		for (let i = 0; i < bracketCount; i++) {
 			let bracketCompetitors = competitionData.slice(sliceStart, sliceEnd);
 
-			brackets.push(<BracketCard bracketCompetitors={bracketCompetitors} onCompetitorCardHover={onCompetitorCardHover} />)
+			brackets.push(<BracketCard bracketCompetitors={bracketCompetitors} onCompetitorCardHover={onCompetitorCardHover} onCompetitorMouseLeave={onCompetitorMouseLeave} />)
 
 			sliceStart = sliceEnd;
 			sliceEnd = sliceEnd + 4;
