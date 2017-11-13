@@ -1,8 +1,8 @@
 import React, { Component } from 'react'
 import { render } from 'react-dom'
-import BracketCard from './components/bracketCard/bracketCard'
-import MatchCard from './components/matchCard/matchCard'
-import { buildCompetitionData, buildLevels, computeBracketCount } from './utility/utility'
+import LevelCard from './components/levelCard/levelCard'
+import { buildCompetitionData } from './utility/utility'
+
 
 class App extends Component {
 	constructor() {
@@ -62,22 +62,22 @@ class App extends Component {
 		const competitorsCount = this.state.competitors.length;
 
 		const levelsCount = Math.log2(competitorsCount);
-		const bracketCount = competitorsCount / 4;
-		const matchesCount = competitorsCount - 1;
 
-		const competitionData = this.state.competitionData;
-		
 		const levels = [];
+		let competitorCountInLevel = competitorsCount;
+		let startSlice = 0;
+		let endSlice = competitorCountInLevel;
 
-		levels.push(buildLevels(competitionData, levelsCount, this.onCompetitorCardHover, this.onCompetitorCardMouseLeave));
+		for (let i = 0; i < levelsCount; i++) {
+			console.log(`${i}: ${startSlice} - ${endSlice} | competitors count: ${competitorCountInLevel}`);
+			const levelCompetitionData = this.state.competitionData.slice(startSlice, endSlice);
 
-		const finalMatchCompetitors = [competitionData[competitionData.length - 2], competitionData[competitionData.length - 1]];
-		
-		const finalMatch = <div className="col m3 l2">
-				<MatchCard matchCompetitors={finalMatchCompetitors} matchNumber={finalMatchCompetitors[0].matchNumber}/>
-			</div>;
+			levels.push(<LevelCard competitionData={levelCompetitionData} onCompetitorCardHover={this.onCompetitorCardHover} onCompetitorMouseLeave={this.onCompetitorCardMouseLeave} />);
 
-		levels.push(finalMatch);
+			competitorCountInLevel = competitorCountInLevel / 2;
+			startSlice = endSlice;
+			endSlice = endSlice + competitorCountInLevel;
+		}
 
 		return(
 			<div className="row">

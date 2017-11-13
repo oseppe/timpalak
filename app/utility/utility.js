@@ -51,37 +51,4 @@ function buildCompetitionData(competitors) {
 	return competitionData;
 }
 
-function computeBracketCount(level) {
-	const exponent = level - 2 > 0 ? level - 2 : 0;
-
-	return 2 ** exponent;
-}
-
-function buildLevels(competitionData, levelsCount, onCompetitorCardHover, onCompetitorMouseLeave) {
-	const levels = [];
-
-	let sliceStart = 0;
-	let sliceEnd = 4;
-
-	for (let level = levelsCount; level > 1; level--) {
-		const bracketCount = computeBracketCount(level);
-		const brackets = [];
-
-		for (let i = 0; i < bracketCount; i++) {
-			let bracketCompetitors = competitionData.slice(sliceStart, sliceEnd);
-
-			brackets.push(<BracketCard bracketCompetitors={bracketCompetitors} onCompetitorCardHover={onCompetitorCardHover} onCompetitorMouseLeave={onCompetitorMouseLeave} />)
-
-			sliceStart = sliceEnd;
-			sliceEnd = sliceEnd + 4;
-		}
-
-		levels.push(<div className="col m3 l2">
-			{ brackets }
-		</div>);
-	}
-
-	return levels;
-}
-
-export {buildCompetitionData, buildLevels, computeBracketCount};
+export { buildCompetitionData };
