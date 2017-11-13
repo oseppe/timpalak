@@ -20,12 +20,14 @@ class BracketCard extends Component {
 							matchNumber={this.state.firstMatchNumber}
 							onCompetitorCardChangeName={this.props.onCompetitorCardChangeName}
 							onCompetitorCardHover={this.props.onCompetitorCardHover}
-							onCompetitorMouseLeave={this.props.onCompetitorMouseLeave} />
+							onCompetitorMouseLeave={this.props.onCompetitorMouseLeave}
+							onCompetitorCardChangeScore={this.props.onCompetitorCardChangeScore} />
 					<MatchCard matchCompetitors={this.state.secondMatch} 
 							matchNumber={this.state.secondMatchNumber}
 							onCompetitorCardChangeName={this.props.onCompetitorCardChangeName}
 							onCompetitorCardHover={this.props.onCompetitorCardHover}
-							onCompetitorMouseLeave={this.props.onCompetitorMouseLeave} />
+							onCompetitorMouseLeave={this.props.onCompetitorMouseLeave}
+							onCompetitorCardChangeScore={this.props.onCompetitorCardChangeScore} />
 				</div>
 			</div>
 		)

@@ -37,9 +37,11 @@ class CompetitorCard extends Component {
 					id={this.props.competitor.id}
 					backgroundColor={this.state.backgroundColor}
 					onCompetitorCardChangeName={this.props.onCompetitorCardChangeName} />
-				<CompetitorScore score={this.props.competitor.score} 
+				<CompetitorScore score={this.props.competitor.score}
+					id={this.props.competitor.id}
+					match={this.props.competitor.match} 
 					backgroundColor={this.state.backgroundColor}
-					onCompetitorCardChangeName={this.props.onCompetitorCardChangeName} />
+					onCompetitorCardChangeScore={this.props.onCompetitorCardChangeScore} />
 			</div>
 		)
 	}

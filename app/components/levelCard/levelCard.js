@@ -27,7 +27,8 @@ class LevelCard extends Component {
 				brackets.push(<BracketCard bracketCompetitors={bracketCompetitors} 
 					onCompetitorCardChangeName={this.props.onCompetitorCardChangeName}
 					onCompetitorCardHover={this.props.onCompetitorCardHover} 
-					onCompetitorMouseLeave={this.props.onCompetitorMouseLeave} />)
+					onCompetitorMouseLeave={this.props.onCompetitorMouseLeave} 
+					onCompetitorCardChangeScore={this.props.onCompetitorCardChangeScore} />)
 
 				sliceStart = sliceEnd;
 				sliceEnd = sliceEnd + 4;
@@ -41,7 +42,8 @@ class LevelCard extends Component {
 				matchNumber={this.props.competitionData[0].matchNumber}
 				onCompetitorCardChangeName={this.props.onCompetitorCardChangeName}
 				onCompetitorCardHover={this.props.onCompetitorCardHover}
-				onCompetitorMouseLeave={this.props.onCompetitorMouseLeave} />
+				onCompetitorMouseLeave={this.props.onCompetitorMouseLeave}
+				onCompetitorCardChangeScore={this.props.onCompetitorCardChangeScore} />
 		}
 
 		return(

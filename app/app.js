@@ -29,6 +29,7 @@ class App extends Component {
 		};
 
 		this.onCompetitorCardChangeName = this.onCompetitorCardChangeName.bind(this);
+		this.onCompetitorCardChangeScore = this.onCompetitorCardChangeScore.bind(this);
 		this.onCompetitorCardHover = this.onCompetitorCardHover.bind(this);
 		this.onCompetitorCardMouseLeave = this.onCompetitorCardMouseLeave.bind(this);
 	}
@@ -45,6 +46,22 @@ class App extends Component {
 		});
 
 		this.setState({competitionData});
+	}
+
+	onCompetitorCardChangeScore(score, id, match) {
+		const oldCompetitionData = this.state.competitionData;
+
+		const competitionData = oldCompetitionData.map((item, index) => {
+			if (item.id !== '' && item.match === match && item.id === item.id) {
+				item.score = score;
+			}
+			
+			return item;
+		});
+
+		this.setState({competitionData});
+
+		console.log(competitionData);
 	}
 
 	onCompetitorCardHover(id) {
@@ -91,7 +108,8 @@ class App extends Component {
 			levels.push(<LevelCard competitionData={levelCompetitionData} 
 				onCompetitorCardHover={this.onCompetitorCardHover}
 				onCompetitorMouseLeave={this.onCompetitorCardMouseLeave}
-				onCompetitorCardChangeName={this.onCompetitorCardChangeName} />);
+				onCompetitorCardChangeName={this.onCompetitorCardChangeName} 
+				onCompetitorCardChangeScore={this.onCompetitorCardChangeScore} />);
 
 			competitorCountInLevel = competitorCountInLevel / 2;
 			startSlice = endSlice;
