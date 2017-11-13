@@ -6,11 +6,13 @@ function buildCompetitionData(competitors) {
 
 	let currentMatch = 1;
 	let matchContestantCounter = 1;
+	let competitorId = 0;
 
 	// build the competitor cards for first level
 	for(let competitor of competitors) {
 		const competitorData = {};
 
+		competitorData.id = `${competitorId}`;
 		competitorData.name = competitor;
 		competitorData.score = 0;
 		competitorData.matchNumber = currentMatch;
@@ -24,6 +26,7 @@ function buildCompetitionData(competitors) {
 		}
 
 		competitionData.push(competitorData);
+		competitorId++;
 	}
 
 	const totalCompetitorCards = (competitors.length - 1) * 2;
@@ -33,6 +36,7 @@ function buildCompetitionData(competitors) {
 	for (let i = remainingCompetitorCards; i > 0; i--) {
 		const competitorData = {};
 
+		competitorData.id = '';
 		competitorData.name = '';
 		competitorData.score = 0;
 		competitorData.matchNumber = currentMatch;

@@ -18,7 +18,7 @@ class CompetitorCard extends Component {
 	}
 
 	handleOnHover() {
-		this.props.onCompetitorCardHover(this.props.competitor.name);
+		this.props.onCompetitorCardHover(this.props.competitor.id);
 	}
 
 	handleOnMouseLeave() {
@@ -33,8 +33,13 @@ class CompetitorCard extends Component {
 				style={{
 				margin: 0,
 			}}>
-				<CompetitorName name={this.props.competitor.name} backgroundColor={this.state.backgroundColor} />
-				<CompetitorScore score={this.props.competitor.score} backgroundColor={this.state.backgroundColor} />
+				<CompetitorName name={this.props.competitor.name}
+					id={this.props.competitor.id}
+					backgroundColor={this.state.backgroundColor}
+					onCompetitorCardChangeName={this.props.onCompetitorCardChangeName} />
+				<CompetitorScore score={this.props.competitor.score} 
+					backgroundColor={this.state.backgroundColor}
+					onCompetitorCardChangeName={this.props.onCompetitorCardChangeName} />
 			</div>
 		)
 	}

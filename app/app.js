@@ -17,8 +17,10 @@ class App extends Component {
 		
 		const indexJanna = competitors.indexOf('Janna');
 		const secondLevel = indexJanna + competitors.length - 1;
+		competitionData[secondLevel].id = '2';
 		competitionData[secondLevel].name = 'Janna';
 		const thirdLevel = secondLevel + (competitors.length / 2) - 1;
+		competitionData[thirdLevel].id = '2';
 		competitionData[thirdLevel].name = 'Janna';
 
 		this.state = {
@@ -26,15 +28,30 @@ class App extends Component {
 			competitors,
 		};
 
+		this.onCompetitorCardChangeName = this.onCompetitorCardChangeName.bind(this);
 		this.onCompetitorCardHover = this.onCompetitorCardHover.bind(this);
 		this.onCompetitorCardMouseLeave = this.onCompetitorCardMouseLeave.bind(this);
 	}
 
-	onCompetitorCardHover(competitorName) {
+	onCompetitorCardChangeName(competitorName, id) {
 		const oldCompetitionData = this.state.competitionData;
 
 		const competitionData = oldCompetitionData.map((item, index) => {
-			if (item.name !== '' && item.name === competitorName) {
+			if (item.id !== '' && item.id === id) {
+				item.name = competitorName;
+			}
+			
+			return item;
+		});
+
+		this.setState({competitionData});
+	}
+
+	onCompetitorCardHover(id) {
+		const oldCompetitionData = this.state.competitionData;
+
+		const competitionData = oldCompetitionData.map((item, index) => {
+			if (item.id !== '' && item.id === id) {
 				item.hover = true;
 			}
 			
@@ -69,10 +86,12 @@ class App extends Component {
 		let endSlice = competitorCountInLevel;
 
 		for (let i = 0; i < levelsCount; i++) {
-			console.log(`${i}: ${startSlice} - ${endSlice} | competitors count: ${competitorCountInLevel}`);
 			const levelCompetitionData = this.state.competitionData.slice(startSlice, endSlice);
 
-			levels.push(<LevelCard competitionData={levelCompetitionData} onCompetitorCardHover={this.onCompetitorCardHover} onCompetitorMouseLeave={this.onCompetitorCardMouseLeave} />);
+			levels.push(<LevelCard competitionData={levelCompetitionData} 
+				onCompetitorCardHover={this.onCompetitorCardHover}
+				onCompetitorMouseLeave={this.onCompetitorCardMouseLeave}
+				onCompetitorCardChangeName={this.onCompetitorCardChangeName} />);
 
 			competitorCountInLevel = competitorCountInLevel / 2;
 			startSlice = endSlice;
