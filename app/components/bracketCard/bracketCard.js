@@ -12,6 +12,14 @@ class BracketCard extends Component {
 			secondMatchNumber: this.props.bracketCompetitors[2].matchNumber,
 		}
 	}
+
+	componentWillReceiveProps(nextProps) {
+		this.setState({
+			firstMatch: [this.props.bracketCompetitors[0], this.props.bracketCompetitors[1]],
+			secondMatch: [this.props.bracketCompetitors[2], this.props.bracketCompetitors[3]],
+		});
+	}
+
 	render() {
 		return(
 			<div  style={{}}>

@@ -73,6 +73,21 @@ function buildCompetitionData(competitors) {
 	return competitionData;
 }
 
+function copyCompetitorData(competitor) {
+	const clonedCompetitor = {};
+
+	clonedCompetitor.id = competitor.id;
+	clonedCompetitor.level = competitor.level;
+	clonedCompetitor.name = competitor.name;
+	clonedCompetitor.score = competitor.score;
+	clonedCompetitor.matchNumber = competitor.matchNumber;
+	clonedCompetitor.matchCompetitorNumber = competitor.matchCompetitorNumber;
+	clonedCompetitor.isMatchFought = competitor.isMatchFought;
+	clonedCompetitor.hover = competitor.hover;
+
+	return clonedCompetitor;
+}
+
 // TODO: should be refactored to something flexible
 function nextMatchNumber(matchNumber) {
 	const matchNumberDirectory = {
@@ -119,4 +134,4 @@ function nextMatchCompetitorNumber(matchNumber) {
 	return matchCompetitorNumberDirectory[matchNumber]
 }
 
-export { buildCompetitionData, nextMatchNumber, nextMatchCompetitorNumber };
+export { buildCompetitionData, copyCompetitorData, nextMatchNumber, nextMatchCompetitorNumber };

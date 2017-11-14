@@ -1,7 +1,7 @@
 import React, { Component } from 'react'
 import { render } from 'react-dom'
 import LevelCard from './components/levelCard/levelCard'
-import { buildCompetitionData, nextMatchNumber, nextMatchCompetitorNumber } from './utility/utility'
+import { buildCompetitionData, copyCompetitorData, nextMatchNumber, nextMatchCompetitorNumber } from './utility/utility'
 
 
 class App extends Component {
@@ -15,14 +15,6 @@ class App extends Component {
 
 		const competitionData = buildCompetitionData(competitors);
 		
-		// const indexJanna = competitors.indexOf('Janna');
-		// const secondLevel = indexJanna + competitors.length - 1;
-		// competitionData[secondLevel].id = '2';
-		// competitionData[secondLevel].name = 'Janna';
-		// const thirdLevel = secondLevel + (competitors.length / 2) - 1;
-		// competitionData[thirdLevel].id = '2';
-		// competitionData[thirdLevel].name = 'Janna';
-
 		this.state = {
 			competitionData,
 			competitors,
@@ -107,10 +99,14 @@ class App extends Component {
 			return competitor.id === competitorBId;
 		});
 
-		console.log('comp A');
-		console.log(competitorA);
-		console.log('comp B');
-		console.log(competitorB);
+		const winner = competitorA.score > competitorB.score ? competitorA : competitorB;
+		
+		const victor = copyCompetitorData(winner);
+		victor.isMatchFought = false;
+		victor.level = winner.level + 1;
+		victor.matchNumber = nextMatchNumber(winner.matchNumber);
+		victor.matchCompetitorNumber = nextMatchCompetitorNumber(winner.matchNumber);
+		victor.score = 'x';
 
 		const competitionData = oldCompetitionData.map((item, index) => {
 			if (item.matchNumber === matchNumber 
@@ -118,10 +114,16 @@ class App extends Component {
 				item.isMatchFought = true;
 			}
 
+			if (item.matchNumber === victor.matchNumber && item.matchCompetitorNumber === victor.matchCompetitorNumber) {
+				item = victor;
+			}
+
 			// TODO: investigate why not returning item here seems 
 			// to insert two undefined in competition data
 			return item;
 		});
+
+		console.log(competitionData);
 
 		this.setState({ competitionData });
 	}
