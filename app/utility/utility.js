@@ -16,7 +16,7 @@ function buildCompetitionData(competitors) {
 		competitorData.id = `${competitorId}`;
 		competitorData.level = currentLevel;
 		competitorData.name = competitor;
-		competitorData.score = 0;
+		competitorData.score = 'x';
 		competitorData.matchNumber = currentMatch;
 		competitorData.hover = false;
 
@@ -44,7 +44,7 @@ function buildCompetitionData(competitors) {
 		competitorData.id = '';
 		competitorData.level = currentLevel;
 		competitorData.name = '';
-		competitorData.score = 0;
+		competitorData.score = 'x';
 		competitorData.matchNumber = currentMatch;
 		competitorData.hover = false;
 		

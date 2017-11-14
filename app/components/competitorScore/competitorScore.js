@@ -40,11 +40,12 @@ class CompetitorScore extends Component {
 			<div className="col s3" style={{
 				backgroundColor: "#d35400", 
 				padding: "5px",
-				textAlign: "center"
+				textAlign: "center",
 			}}>
 				<div onClick={ this.handleMouseClick } 
 					style={{
-					display: `${this.state.textDisplay}`
+					display: `${this.state.textDisplay}`,
+					height: 'inherit',
 				}}>
 					{this.state.score}
 				</div>
