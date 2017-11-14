@@ -92,11 +92,11 @@ class App extends Component {
 		const oldCompetitionData = this.state.competitionData;
 
 		const competitorA = oldCompetitionData.find((competitor) => {
-			return competitor.id === competitorAId;
+			return competitor.matchNumber === matchNumber && competitor.id === competitorAId;
 		});
 
 		const competitorB = oldCompetitionData.find((competitor) => {
-			return competitor.id === competitorBId;
+			return competitor.matchNumber === matchNumber && competitor.id === competitorBId;
 		});
 
 		const winner = competitorA.score > competitorB.score ? competitorA : competitorB;
