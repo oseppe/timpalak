@@ -13,9 +13,6 @@ class MatchCard extends Component {
 	}
 
 	componentWillReceiveProps(nextProps) {
-		if (nextProps.matchCompetitors[0].score === this.props.matchCompetitors[0].score
-			&& nextProps.matchCompetitors[1].score === this.props.matchCompetitors[1].score) return;
-
 		let matchReady = this.isMatchReady(nextProps.matchCompetitors[0].score, nextProps.matchCompetitors[1].score);
 
 		const visibilityBtnMatch = matchReady ? '' : 'hidden';
@@ -24,7 +21,7 @@ class MatchCard extends Component {
 	}
 
 	isMatchReady(scoreA, scoreB) {
-		return !isNaN(+scoreA) && !isNaN(+scoreB)
+		return scoreA.trim() !== '' && scoreB !== '' && !isNaN(scoreA) && !isNaN(scoreB)
 	}
 
 	render() {

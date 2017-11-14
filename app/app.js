@@ -48,11 +48,11 @@ class App extends Component {
 		this.setState({competitionData});
 	}
 
-	onCompetitorCardChangeScore(score, id, match) {
+	onCompetitorCardChangeScore(score, id, matchNumber) {
 		const oldCompetitionData = this.state.competitionData;
 
 		const competitionData = oldCompetitionData.map((item, index) => {
-			if (item.id !== '' && item.match === match && item.id === item.id) {
+			if (item.id !== '' && item.matchNumber === matchNumber && item.id === id) {
 				item.score = score;
 			}
 			
@@ -105,7 +105,8 @@ class App extends Component {
 		for (let i = 0; i < levelsCount; i++) {
 			const levelCompetitionData = this.state.competitionData.slice(startSlice, endSlice);
 
-			levels.push(<LevelCard competitionData={levelCompetitionData} 
+			levels.push(<LevelCard key={i}
+				competitionData={levelCompetitionData} 
 				onCompetitorCardHover={this.onCompetitorCardHover}
 				onCompetitorMouseLeave={this.onCompetitorCardMouseLeave}
 				onCompetitorCardChangeName={this.onCompetitorCardChangeName} 

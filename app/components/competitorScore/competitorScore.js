@@ -6,7 +6,7 @@ class CompetitorScore extends Component {
 
 		this.state = {
 			id: this.props.id,
-			match: this.props.match,
+			matchNumber: this.props.matchNumber,
 			score: this.props.score,
 			inputDisplay: 'none',
 			textDisplay: '',
@@ -21,8 +21,10 @@ class CompetitorScore extends Component {
 		const score = e.target.value;
     this.setState({ score });
 
-    if (isNaN(+score)) return;
-    this.props.onCompetitorCardChangeScore(score, this.props.id, this.props.match);
+    if (score.trim() === '' || isNaN(score)) return;
+    
+    this.props.onCompetitorCardChangeScore(score, this.props.id, this.props.matchNumber);
+
   }
 
   handleKeyPress(e) {

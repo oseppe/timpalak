@@ -24,7 +24,8 @@ class LevelCard extends Component {
 			for (let i = 0; i < bracketCount; i++) {
 				let bracketCompetitors = this.props.competitionData.slice(sliceStart, sliceEnd);
 
-				brackets.push(<BracketCard bracketCompetitors={bracketCompetitors} 
+				brackets.push(<BracketCard key={i} 
+					bracketCompetitors={bracketCompetitors} 
 					onCompetitorCardChangeName={this.props.onCompetitorCardChangeName}
 					onCompetitorCardHover={this.props.onCompetitorCardHover} 
 					onCompetitorMouseLeave={this.props.onCompetitorMouseLeave} 
