@@ -15,13 +15,13 @@ class App extends Component {
 
 		const competitionData = buildCompetitionData(competitors);
 		
-		const indexJanna = competitors.indexOf('Janna');
-		const secondLevel = indexJanna + competitors.length - 1;
-		competitionData[secondLevel].id = '2';
-		competitionData[secondLevel].name = 'Janna';
-		const thirdLevel = secondLevel + (competitors.length / 2) - 1;
-		competitionData[thirdLevel].id = '2';
-		competitionData[thirdLevel].name = 'Janna';
+		// const indexJanna = competitors.indexOf('Janna');
+		// const secondLevel = indexJanna + competitors.length - 1;
+		// competitionData[secondLevel].id = '2';
+		// competitionData[secondLevel].name = 'Janna';
+		// const thirdLevel = secondLevel + (competitors.length / 2) - 1;
+		// competitionData[thirdLevel].id = '2';
+		// competitionData[thirdLevel].name = 'Janna';
 
 		this.state = {
 			competitionData,
@@ -32,6 +32,7 @@ class App extends Component {
 		this.onCompetitorCardChangeScore = this.onCompetitorCardChangeScore.bind(this);
 		this.onCompetitorCardHover = this.onCompetitorCardHover.bind(this);
 		this.onCompetitorCardMouseLeave = this.onCompetitorCardMouseLeave.bind(this);
+		this.onMatchFight = this.onMatchFight.bind(this);
 	}
 
 	onCompetitorCardChangeName(competitorName, id) {
@@ -52,16 +53,18 @@ class App extends Component {
 		const oldCompetitionData = this.state.competitionData;
 
 		const competitionData = oldCompetitionData.map((item, index) => {
-			if (item.id !== '' && item.matchNumber === matchNumber && item.id === id) {
-				item.score = score;
-			}
+			if (item.id === '') return item;
+			if (item.matchNumber !== matchNumber) return item;
+			if (item.id === id) item.score = score;
 			
+			item.isMatchFought = false;
+
 			return item;
 		});
 
-		this.setState({competitionData});
+		this.setState({ competitionData });
 
-		console.log(competitionData);
+		// console.log(competitionData);
 	}
 
 	onCompetitorCardHover(id) {
@@ -92,6 +95,37 @@ class App extends Component {
 		this.setState({competitionData});
 	}
 
+	onMatchFight(matchNumber, competitorAId, competitorBId) {
+		console.log(`match: ${matchNumber}`);
+		const oldCompetitionData = this.state.competitionData;
+
+		const competitorA = oldCompetitionData.find((competitor) => {
+			return competitor.id === competitorAId;
+		});
+
+		const competitorB = oldCompetitionData.find((competitor) => {
+			return competitor.id === competitorBId;
+		});
+
+		console.log('comp A');
+		console.log(competitorA);
+		console.log('comp B');
+		console.log(competitorB);
+
+		const competitionData = oldCompetitionData.map((item, index) => {
+			if (item.matchNumber === matchNumber 
+				&& (item.id === competitorAId || item.id === competitorBId)) {
+				item.isMatchFought = true;
+			}
+
+			// TODO: investigate why not returning item here seems 
+			// to insert two undefined in competition data
+			return item;
+		});
+
+		this.setState({ competitionData });
+	}
+
 	render() {
 		const competitorsCount = this.state.competitors.length;
 
@@ -110,7 +144,8 @@ class App extends Component {
 				onCompetitorCardHover={this.onCompetitorCardHover}
 				onCompetitorMouseLeave={this.onCompetitorCardMouseLeave}
 				onCompetitorCardChangeName={this.onCompetitorCardChangeName} 
-				onCompetitorCardChangeScore={this.onCompetitorCardChangeScore} />);
+				onCompetitorCardChangeScore={this.onCompetitorCardChangeScore}
+				onMatchFight={this.onMatchFight} />);
 
 			competitorCountInLevel = competitorCountInLevel / 2;
 			startSlice = endSlice;

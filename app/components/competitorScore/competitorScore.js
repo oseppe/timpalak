@@ -34,6 +34,7 @@ class CompetitorScore extends Component {
   }
 
   handleMouseClick() {
+  	if(this.state.id.trim() === '') return;
 		this.setState({ inputDisplay: '', textDisplay: 'none' });
 	}
 

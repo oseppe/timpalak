@@ -29,7 +29,8 @@ class LevelCard extends Component {
 					onCompetitorCardChangeName={this.props.onCompetitorCardChangeName}
 					onCompetitorCardHover={this.props.onCompetitorCardHover} 
 					onCompetitorMouseLeave={this.props.onCompetitorMouseLeave} 
-					onCompetitorCardChangeScore={this.props.onCompetitorCardChangeScore} />)
+					onCompetitorCardChangeScore={this.props.onCompetitorCardChangeScore}
+					onMatchFight={this.props.onMatchFight} />)
 
 				sliceStart = sliceEnd;
 				sliceEnd = sliceEnd + 4;
@@ -39,12 +40,14 @@ class LevelCard extends Component {
 		}
 		// handle final matchcard
 		else if (competitionDataCount / 2 === 1) {
+
 			this.state.level = <MatchCard matchCompetitors={this.props.competitionData} 
 				matchNumber={this.props.competitionData[0].matchNumber}
 				onCompetitorCardChangeName={this.props.onCompetitorCardChangeName}
 				onCompetitorCardHover={this.props.onCompetitorCardHover}
 				onCompetitorMouseLeave={this.props.onCompetitorMouseLeave}
-				onCompetitorCardChangeScore={this.props.onCompetitorCardChangeScore} />
+				onCompetitorCardChangeScore={this.props.onCompetitorCardChangeScore}
+				onMatchFight={this.props.onMatchFight} />
 		}
 
 		return(

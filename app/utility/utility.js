@@ -18,6 +18,7 @@ function buildCompetitionData(competitors) {
 		competitorData.name = competitor;
 		competitorData.score = 'x';
 		competitorData.matchNumber = currentMatch;
+		competitorData.isMatchFought = false;
 		competitorData.hover = false;
 
 		matchContestantCounter++;
@@ -46,6 +47,7 @@ function buildCompetitionData(competitors) {
 		competitorData.name = '';
 		competitorData.score = 'x';
 		competitorData.matchNumber = currentMatch;
+		competitorData.isMatchFought = false;
 		competitorData.hover = false;
 		
 		matchContestantCounter++;
