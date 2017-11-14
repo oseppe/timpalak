@@ -4,8 +4,8 @@ import React from 'react'
 function buildCompetitionData(competitors) {
 	const competitionData = [];
 
-	let currentMatch = 1;
-	let matchContestantCounter = 1;
+	let currentMatch = 0;
+	let matchCompetitorNumber = 0;
 	let competitorId = 0;
 	let currentLevel = 0;
 
@@ -18,14 +18,15 @@ function buildCompetitionData(competitors) {
 		competitorData.name = competitor;
 		competitorData.score = 'x';
 		competitorData.matchNumber = currentMatch;
+		competitorData.matchCompetitorNumber = matchCompetitorNumber;
 		competitorData.isMatchFought = false;
 		competitorData.hover = false;
 
-		matchContestantCounter++;
+		matchCompetitorNumber++;
 
-		if(matchContestantCounter > 2) {
+		if(matchCompetitorNumber > 1) {
 			currentMatch++;
-			matchContestantCounter = 1;
+			matchCompetitorNumber = 0;
 		}
 
 		competitionData.push(competitorData);
@@ -47,14 +48,15 @@ function buildCompetitionData(competitors) {
 		competitorData.name = '';
 		competitorData.score = 'x';
 		competitorData.matchNumber = currentMatch;
+		competitorData.matchCompetitorNumber = matchCompetitorNumber;
 		competitorData.isMatchFought = false;
 		competitorData.hover = false;
 		
-		matchContestantCounter++;
+		matchCompetitorNumber++;
 
-		if(matchContestantCounter > 2) {
+		if(matchCompetitorNumber > 1) {
 			currentMatch++;
-			matchContestantCounter = 1;
+			matchCompetitorNumber = 0;
 		}
 
 		competitionData.push(competitorData);
@@ -71,4 +73,50 @@ function buildCompetitionData(competitors) {
 	return competitionData;
 }
 
-export { buildCompetitionData };
+// TODO: should be refactored to something flexible
+function nextMatchNumber(matchNumber) {
+	const matchNumberDirectory = {
+		0: 8,
+		1: 8,
+		2: 9,
+		3: 9,
+		4: 10,
+		5: 10,
+		6: 11,
+		7: 11,
+		8: 12,
+		9: 12,
+		10: 13,
+		11: 13,
+		12: 14,
+		13: 14,
+		14: -1
+	}
+
+	return matchNumberDirectory[matchNumber];
+}
+
+// TODO: should be refactored to something flexible
+function nextMatchCompetitorNumber(matchNumber) {
+	const matchCompetitorNumberDirectory = {
+		0: 0,
+		1: 1,
+		2: 0,
+		3: 1,
+		4: 0,
+		5: 1,
+		6: 0,
+		7: 1,
+		8: 0,
+		9: 1,
+		10: 0,
+		11: 1,
+		12: 0,
+		13: 1,
+		14: -1
+	}
+
+	return matchCompetitorNumberDirectory[matchNumber]
+}
+
+export { buildCompetitionData, nextMatchNumber, nextMatchCompetitorNumber };

@@ -44,7 +44,7 @@ class MatchCard extends Component {
 					margin: 0,
 					padding: 0,
 				}}>
-					{this.props.matchNumber}
+					{this.props.matchNumber + 1}
 				</div>
 				<div className="col s10" style={{
 					backgroundColor: "#34495e",

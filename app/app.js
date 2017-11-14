@@ -1,7 +1,7 @@
 import React, { Component } from 'react'
 import { render } from 'react-dom'
 import LevelCard from './components/levelCard/levelCard'
-import { buildCompetitionData } from './utility/utility'
+import { buildCompetitionData, nextMatchNumber, nextMatchCompetitorNumber } from './utility/utility'
 
 
 class App extends Component {
