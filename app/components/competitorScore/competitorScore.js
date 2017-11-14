@@ -18,10 +18,14 @@ class CompetitorScore extends Component {
 	}
 
 	componentWillReceiveProps(nextProps) {
-		if (nextProps.score === this.props.score) return;
+		if (nextProps.score !== this.props.score) {
+			this.setState({  score: nextProps.score,});
+		};
 
-		const score = nextProps.score;
-		this.setState({ score });
+		if (nextProps.id !== this.props.id) {
+			this.setState({ id: nextProps.id });
+		};
+
 	}
 
 	handleChange(e) {
@@ -41,7 +45,7 @@ class CompetitorScore extends Component {
   }
 
   handleMouseClick() {
-  	// if(this.state.id.trim() === '') return;
+  	if(this.state.id.trim() === '') return;
 		this.setState({ inputDisplay: '', textDisplay: 'none' });
 	}
 
