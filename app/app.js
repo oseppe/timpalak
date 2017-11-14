@@ -1,17 +1,14 @@
 import React, { Component } from 'react'
 import { render } from 'react-dom'
 import LevelCard from './components/levelCard/levelCard'
-import { buildCompetitionData, copyCompetitorData, nextMatchNumber, nextMatchCompetitorNumber } from './utility/utility'
+import { buildCompetitionData, copyCompetitorData, generateCompetitors, nextMatchNumber, nextMatchCompetitorNumber } from './utility/utility'
 
 
 class App extends Component {
 	constructor() {
 		super();
 
-		const competitors = [
-			'Alistar', 'Blitzcrank', 'Janna', 'Karma', 'Leona', 'Lulu', 'Morgana', 'Nami', 
-			'Nautilus', 'Rakan', 'Sona', 'Soraka', 'Taric', 'Thresh',  'Zilean', 'Zyra'
-		];
+		const competitors = generateCompetitors();
 
 		const competitionData = buildCompetitionData(competitors);
 		
@@ -25,6 +22,7 @@ class App extends Component {
 		this.onCompetitorCardHover = this.onCompetitorCardHover.bind(this);
 		this.onCompetitorCardMouseLeave = this.onCompetitorCardMouseLeave.bind(this);
 		this.onMatchFight = this.onMatchFight.bind(this);
+		this.handleRestart = this.handleRestart.bind(this);
 	}
 
 	onCompetitorCardChangeName(competitorName, id) {
@@ -128,6 +126,14 @@ class App extends Component {
 		this.setState({ competitionData });
 	}
 
+	handleRestart() {
+		const competitors = generateCompetitors();
+
+		const competitionData = buildCompetitionData(competitors);
+
+		this.setState({ competitors, competitionData });
+	}
+
 	render() {
 		const competitorsCount = this.state.competitors.length;
 
@@ -155,8 +161,19 @@ class App extends Component {
 		}
 
 		return(
-			<div className="row">
-				{ levels }
+			<div>
+				<div className="row" style={{
+					paddingTop: '10px',
+				}}>
+					<div className="col s12 m12 l12 center-align">
+						<button className="btn waves-effect waves-light" onClick={ this.handleRestart }>
+							Restart
+						</button>
+					</div>
+				</div>
+				<div className="row">
+					{ levels }
+				</div>
 			</div>
 		)
 	}

@@ -17,6 +17,13 @@ class CompetitorScore extends Component {
 		this.handleMouseClick = this.handleMouseClick.bind(this);
 	}
 
+	componentWillReceiveProps(nextProps) {
+		if (nextProps.score === this.props.score) return;
+
+		const score = nextProps.score;
+		this.setState({ score });
+	}
+
 	handleChange(e) {
 		const score = e.target.value;
     this.setState({ score });

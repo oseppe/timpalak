@@ -88,6 +88,43 @@ function copyCompetitorData(competitor) {
 	return clonedCompetitor;
 }
 
+function generateCompetitors() {
+	const list = [
+		'Aatrox', 'Ahri', 'Akali', 'Alistar', 'Amumu', 'Anivia',
+		'Annie', 'Ashe', 'Aurelion Sol', 'Azir', 'Bard', 'Blitzcrank', 
+		'Brand', 'Braum', 'Caitlyn', 'Camille', 'Cassiopeia', "Cho'Gath",
+		'Corki', 'Darius', 'Diana', 'Dr. Mundo', 'Draven', 'Ekko',
+		'Elise', 'Evelynn', 'Ezreal', 'Fiddlesticks', 'Fiora', 'Fizz',
+		'Galio', 'Gangplank', 'Garen', 'Gnar', 'Gragas', 'Graves',
+		'Hecarim', 'Heimerdinger', 'Illaoi', 'Irelia', 'Ivern', 'Janna',
+		'Jarvan IV', 'Jax','Jayce', 'Jhin', 'Jinx', 'Kalista', 
+		'Karma', 'Karthus', 'Kassadin', 'Katarina', 'Kayle', 'Kennen', 
+		"Kha'Zix", 'Kindred', 'Kled', "Kog'Maw", 'LeBlanc', 'Lee Sin',
+		'Leona', 'Lissandra', 'Lucian', 'Lulu', 'Lux', 'Malphite',
+		'Malzahar', 'Maokai', 'Master Yi', 'Miss Fortune', 'Mordekaiser', 'Morgana',
+		'Nami', 'Nautilus', 'Rakan', 'Sona', 'Soraka', 'Taric', 
+		'Thresh',  'Zilean', 'Zyra'
+	];
+
+	const competitors = [];
+
+	for(let i = 0; i < 16; i++) {
+		let competitor = list[getRandomNumberBetween(0, list.length)];
+
+		while(competitors.includes(competitor)) {
+			competitor = list[getRandomNumberBetween(0, list.length)];
+		}
+
+		competitors.push(competitor);
+	}
+
+	return competitors;
+}
+
+function getRandomNumberBetween(min, max) {
+	return Math.floor(Math.random() * (max - min + 1)) + min;	
+}
+
 // TODO: should be refactored to something flexible
 function nextMatchNumber(matchNumber) {
 	const matchNumberDirectory = {
@@ -134,4 +171,4 @@ function nextMatchCompetitorNumber(matchNumber) {
 	return matchCompetitorNumberDirectory[matchNumber]
 }
 
-export { buildCompetitionData, copyCompetitorData, nextMatchNumber, nextMatchCompetitorNumber };
+export { buildCompetitionData, copyCompetitorData, generateCompetitors, nextMatchNumber, nextMatchCompetitorNumber };
