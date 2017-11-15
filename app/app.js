@@ -42,18 +42,20 @@ class App extends Component {
 	onCompetitorCardChangeScore(score, id, matchNumber) {
 		const oldCompetitionData = this.state.competitionData;
 
+		let old = oldCompetitionData[0];
+
 		const competitionData = oldCompetitionData.map((item, index) => {
 			if (item.id === '') return item;
 			if (item.matchNumber !== matchNumber) return item;
 			if (item.id === id) item.score = score;
 			
 			item.isMatchFought = false;
+			item.isWinner = false;
 
 			return item;
 		});
 
 		this.setState({ competitionData });
-
 		// console.log(competitionData);
 	}
 
@@ -114,6 +116,10 @@ class App extends Component {
 
 			if (item.matchNumber === victor.matchNumber && item.matchCompetitorNumber === victor.matchCompetitorNumber) {
 				item = victor;
+			}
+
+			if (item.id === winner.id && item.matchNumber === winner.matchNumber) {
+				item.isWinner = true;
 			}
 
 			// TODO: investigate why not returning item here seems 

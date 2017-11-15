@@ -17,6 +17,7 @@ function buildCompetitionData(competitors) {
 		competitorData.level = currentLevel;
 		competitorData.name = competitor;
 		competitorData.score = 'x';
+		competitorData.isWinner = false;
 		competitorData.matchNumber = currentMatch;
 		competitorData.matchCompetitorNumber = matchCompetitorNumber;
 		competitorData.isMatchFought = false;
@@ -47,6 +48,7 @@ function buildCompetitionData(competitors) {
 		competitorData.level = currentLevel;
 		competitorData.name = '';
 		competitorData.score = 'x';
+		competitorData.isWinner = false;
 		competitorData.matchNumber = currentMatch;
 		competitorData.matchCompetitorNumber = matchCompetitorNumber;
 		competitorData.isMatchFought = false;
@@ -80,6 +82,7 @@ function copyCompetitorData(competitor) {
 	clonedCompetitor.level = competitor.level;
 	clonedCompetitor.name = competitor.name;
 	clonedCompetitor.score = competitor.score;
+	clonedCompetitor.isWinner = competitor.isWinner;
 	clonedCompetitor.matchNumber = competitor.matchNumber;
 	clonedCompetitor.matchCompetitorNumber = competitor.matchCompetitorNumber;
 	clonedCompetitor.isMatchFought = competitor.isMatchFought;

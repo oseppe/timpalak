@@ -7,6 +7,7 @@ class CompetitorScore extends Component {
 		this.state = {
 			id: this.props.id,
 			matchNumber: this.props.matchNumber,
+			backgroundColor: this.getBackgroundColor(this.props.isWinner),
 			score: this.props.score,
 			inputDisplay: 'none',
 			textDisplay: '',
@@ -19,12 +20,18 @@ class CompetitorScore extends Component {
 
 	componentWillReceiveProps(nextProps) {
 		if (nextProps.score !== this.props.score) {
-			this.setState({  score: nextProps.score,});
+			this.setState({ score: nextProps.score, });
 		};
 
 		if (nextProps.id !== this.props.id) {
 			this.setState({ id: nextProps.id });
 		};
+
+		if (nextProps.isWinner !== this.props.isWinner) {
+			this.setState({
+				backgroundColor: this.getBackgroundColor(nextProps.isWinner),
+			});
+		}
 
 	}
 
@@ -36,6 +43,10 @@ class CompetitorScore extends Component {
     
     this.props.onCompetitorCardChangeScore(score, this.props.id, this.props.matchNumber);
 
+  }
+
+  getBackgroundColor(isWinner) {
+  	return isWinner ? "#d35400" : "#46637f";
   }
 
   handleKeyPress(e) {
@@ -52,7 +63,7 @@ class CompetitorScore extends Component {
 	render() {
 		return(
 			<div className="col s3" style={{
-				backgroundColor: "#d35400", 
+				backgroundColor: `${this.state.backgroundColor}`, 
 				padding: "5px",
 				textAlign: "center",
 			}}>
