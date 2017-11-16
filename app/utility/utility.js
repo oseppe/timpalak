@@ -76,17 +76,17 @@ function buildCompetitionData(competitors) {
 }
 
 function copyCompetitorData(competitor) {
-	const clonedCompetitor = {};
+	const clonedCompetitor = { ...competitor };
 
-	clonedCompetitor.id = competitor.id;
-	clonedCompetitor.level = competitor.level;
-	clonedCompetitor.name = competitor.name;
-	clonedCompetitor.score = competitor.score;
-	clonedCompetitor.isWinner = competitor.isWinner;
-	clonedCompetitor.matchNumber = competitor.matchNumber;
-	clonedCompetitor.matchCompetitorNumber = competitor.matchCompetitorNumber;
-	clonedCompetitor.isMatchFought = competitor.isMatchFought;
-	clonedCompetitor.hover = competitor.hover;
+	// clonedCompetitor.id = competitor.id;
+	// clonedCompetitor.level = competitor.level;
+	// clonedCompetitor.name = competitor.name;
+	// clonedCompetitor.score = competitor.score;
+	// clonedCompetitor.isWinner = competitor.isWinner;
+	// clonedCompetitor.matchNumber = competitor.matchNumber;
+	// clonedCompetitor.matchCompetitorNumber = competitor.matchCompetitorNumber;
+	// clonedCompetitor.isMatchFought = competitor.isMatchFought;
+	// clonedCompetitor.hover = competitor.hover;
 
 	return clonedCompetitor;
 }

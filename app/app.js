@@ -42,8 +42,6 @@ class App extends Component {
 	onCompetitorCardChangeScore(score, id, matchNumber) {
 		const oldCompetitionData = this.state.competitionData;
 
-		let old = oldCompetitionData[0];
-
 		const competitionData = oldCompetitionData.map((item, index) => {
 			if (item.id === '') return item;
 			if (item.matchNumber !== matchNumber) return item;
