@@ -1,6 +1,18 @@
 import BracketCard from '../components/bracketCard/bracketCard'
 import React from 'react'
 
+// get players
+// const playerList = generatePlayers();
+// const players = buildPlayerData(playerList);
+// 
+// build matches
+// const matches = buildMatches(players);
+// build levels
+// const levels = buildLevels(matches);
+// 
+
+
+
 function buildCompetitionData(competitors) {
 	const competitionData = [];
 
