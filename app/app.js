@@ -1,16 +1,19 @@
 import React, { Component } from 'react'
 import { render } from 'react-dom'
 import LevelCard from './components/levelCard/levelCard'
+import { CHANGE_NAME, MOUSE_HOVER_COMPETITOR_CARD, MOUSE_LEAVE_COMPETITOR_CARD, CHANGE_SCORE, START_MATCH, START_NEW_COMPETITION } from './actionTypes';
+import { store } from './store';
 import { buildCompetitionData, copyCompetitorData, generateCompetitors, nextMatchNumber, nextMatchCompetitorNumber } from './utility/utility'
+import { Provider, connect } from 'react-redux';
 
 
-class App extends Component {
-	constructor() {
-		super();
+class Board extends Component {
+	constructor(props) {
+		super(props);
 
-		const competitors = generateCompetitors();
+		const competitors = this.props.competitors;
 
-		const competitionData = buildCompetitionData(competitors);
+		const competitionData = this.props.competitionData;
 		
 		this.state = {
 			competitionData,
@@ -23,6 +26,11 @@ class App extends Component {
 		this.onCompetitorCardMouseLeave = this.onCompetitorCardMouseLeave.bind(this);
 		this.onMatchFight = this.onMatchFight.bind(this);
 		this.handleRestart = this.handleRestart.bind(this);
+	}
+
+	componentWillReceiveProps(nextProps) {
+		const {competitors, competitionData} = this.props;
+		this.setState({ competitors, competitionData });
 	}
 
 	onCompetitorCardChangeName(competitorName, id) {
@@ -139,9 +147,10 @@ class App extends Component {
 	}
 
 	render() {
+		const { handleStartNew } = this.props;
 		const competitorsCount = this.state.competitors.length;
 
-		const levelsCount = Math.log2(competitorsCount);
+		const levelsCount = competitorsCount === 0 ? 0 : Math.log2(competitorsCount);
 
 		const levels = [];
 		let competitorCountInLevel = competitorsCount;
@@ -170,7 +179,7 @@ class App extends Component {
 					paddingTop: '10px',
 				}}>
 					<div className="col s12 m12 l12 center-align">
-						<button className="btn waves-effect waves-light" onClick={ this.handleRestart }>
+						<button className="btn waves-effect waves-light" onClick={ handleStartNew }>
 							Restart
 						</button>
 					</div>
@@ -183,7 +192,29 @@ class App extends Component {
 	}
 }
 
+const startNewCompetition = {type: START_NEW_COMPETITION};
+
+function mapStateToProps(state) {
+	return {
+		competitors: state.competitors,
+		competitionData: state.competitionData,
+	}
+}
+
+function mapDispatchToProps(dispatch) {
+	return {
+		handleStartNew: () => dispatch(startNewCompetition)
+	}
+}
+
+let App = connect(
+	mapStateToProps,
+	mapDispatchToProps
+)(Board);
+
 render(
-	<App />,
+	<Provider store={store}>
+		<App />
+	</Provider>,
 	document.getElementById('app')
 )
