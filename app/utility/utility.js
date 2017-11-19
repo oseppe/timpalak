@@ -10,8 +10,69 @@ import React from 'react'
 // build levels
 // const levels = buildLevels(matches);
 // 
+function buildData() {
+	const playerList = generateCompetitors();
+	const players = buildPlayerData(playerList);
 
+	const matches = buildMatches(players);
 
+	return { players, matches };
+}
+
+function buildPlayerData(playerList) {
+	const players = {};
+
+	for (let i =  0; i < playerList.length; i++) {
+		const player = {
+			name: playerList[i],
+			hover: false,
+		}
+		
+		players[`${i}`] = player;
+	}
+
+	return players;
+}
+
+function buildMatches(players) {
+	const matches = {};
+
+	const countPlayers = Object.keys(players).length
+	const totalMatches = countPlayers - 1;
+	
+	let currentMatch = 0;
+
+	// construct first level
+	for (let i = 0; i < countPlayers; i = i + 2) {
+		const match = {
+			playerA: `${i}`,
+			playerB: `${i + 1}`,
+			scoreA: 'x',
+			scoreB: 'x',
+			winner: '',
+			isMatchFought: false,
+		}
+
+		matches[`${currentMatch}`] = match;
+
+		currentMatch++;
+	}
+
+	for (let i = currentMatch; i < totalMatches; i++) {
+		const match = {
+			playerA: '',
+			playerB: '',
+			scoreA: 'x',
+			scoreB: 'x',
+			winner: '',
+			isMatchFought: false,
+		}
+
+		matches[`${i}`] = match;
+	}
+
+	return matches;
+}
 
 function buildCompetitionData(competitors) {
 	const competitionData = [];
@@ -186,4 +247,4 @@ function nextMatchCompetitorNumber(matchNumber) {
 	return matchCompetitorNumberDirectory[matchNumber]
 }
 
-export { buildCompetitionData, copyCompetitorData, generateCompetitors, nextMatchNumber, nextMatchCompetitorNumber };
+export { buildCompetitionData, copyCompetitorData, generateCompetitors, nextMatchNumber, nextMatchCompetitorNumber, buildPlayerData, buildMatches };
