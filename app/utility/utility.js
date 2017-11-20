@@ -1,25 +1,16 @@
 import BracketCard from '../components/bracketCard/bracketCard'
 import React from 'react'
 
-// get players
-// const playerList = generatePlayers();
-// const players = buildPlayerData(playerList);
-// 
-// build matches
-// const matches = buildMatches(players);
-// build levels
-// const levels = buildLevels(matches);
-// 
-function buildData() {
-	const playerList = generateCompetitors();
-	const players = buildPlayerData(playerList);
+function buildData(playerList) {
+	const players = buildPlayers(playerList);
 
 	const matches = buildMatches(players);
+	const levels = buildLevels(matches);
 
-	return { players, matches };
+	return { players, matches, levels };
 }
 
-function buildPlayerData(playerList) {
+function buildPlayers(playerList) {
 	const players = {};
 
 	for (let i =  0; i < playerList.length; i++) {
@@ -72,6 +63,30 @@ function buildMatches(players) {
 	}
 
 	return matches;
+}
+
+function buildLevels(matches) {
+	const levels = {};
+
+	const matchIds = Object.keys(matches);
+	const countPlayers = matchIds.length + 1;
+	const countLevels = Math.log2(countPlayers);
+
+	let matchesInLevel = countPlayers / 2;
+	let startSlice = 0;
+	let endSlice = matchesInLevel;
+
+	for (let i = 0; i < countLevels; i++) {
+		const sliceMatches = matchIds.slice(startSlice, endSlice);
+
+		levels[`${i}`] = sliceMatches;
+
+		matchesInLevel = matchesInLevel / 2;
+		startSlice = endSlice;
+		endSlice = endSlice + matchesInLevel;
+	}
+
+	return levels;
 }
 
 function buildCompetitionData(competitors) {
@@ -247,4 +262,4 @@ function nextMatchCompetitorNumber(matchNumber) {
 	return matchCompetitorNumberDirectory[matchNumber]
 }
 
-export { buildCompetitionData, copyCompetitorData, generateCompetitors, nextMatchNumber, nextMatchCompetitorNumber, buildPlayerData, buildMatches };
+export { buildCompetitionData, copyCompetitorData, generateCompetitors, nextMatchNumber, nextMatchCompetitorNumber, buildPlayers, buildMatches, buildLevels, buildData };
