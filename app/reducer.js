@@ -1,5 +1,5 @@
 import {CHANGE_NAME, MOUSE_HOVER_COMPETITOR_CARD, MOUSE_LEAVE_COMPETITOR_CARD, CHANGE_SCORE, START_MATCH, START_NEW_COMPETITION} from './actionTypes';
-import { buildCompetitionData, copyCompetitorData, generateCompetitors, nextMatchNumber, nextMatchCompetitorNumber } from './utility/utility'
+import { copyCompetitorData, generateCompetitors, nextMatchNumber, nextMatchCompetitorNumber, buildData } from './utility/utility'
 
 export default (state={}, action) => {
 	switch(action.type) {
@@ -21,12 +21,9 @@ export default (state={}, action) => {
 		case START_NEW_COMPETITION:
 			const competitors = generateCompetitors();
 
-			const newState = {
-				competitors: competitors,
-				competitionData: buildCompetitionData(competitors),
-			};
+			const newState = buildData(competitors);
 
-			return newState;
+			return Object.assign({}, newState);
 		default:
 			return state;
 	}

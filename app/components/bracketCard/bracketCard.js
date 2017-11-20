@@ -3,23 +3,20 @@ import MatchCard from '../matchCard/matchCard'
 
 class BracketCard extends Component {
 	render() {
+		const matchIds = this.props.matchIds;
+		const matchesCount = matchIds.length;
+		const matches = [];
+
+		for (let i = 0; i < matchesCount; i++) {
+			const matchId = matchIds[i];
+			matches.push(<MatchCard key={matchId}
+				matchId={matchId} />)
+		}
+
 		return(
 			<div  style={{}}>
 				<div style={{}}>
-					<MatchCard matchCompetitors={[this.props.bracketCompetitors[0], this.props.bracketCompetitors[1]]} 
-							matchNumber={this.props.bracketCompetitors[0].matchNumber}
-							onCompetitorCardChangeName={this.props.onCompetitorCardChangeName}
-							onCompetitorCardHover={this.props.onCompetitorCardHover}
-							onCompetitorMouseLeave={this.props.onCompetitorMouseLeave}
-							onCompetitorCardChangeScore={this.props.onCompetitorCardChangeScore}
-							onMatchFight={this.props.onMatchFight} />
-					<MatchCard matchCompetitors={[this.props.bracketCompetitors[2], this.props.bracketCompetitors[3]]} 
-							matchNumber={this.props.bracketCompetitors[2].matchNumber}
-							onCompetitorCardChangeName={this.props.onCompetitorCardChangeName}
-							onCompetitorCardHover={this.props.onCompetitorCardHover}
-							onCompetitorMouseLeave={this.props.onCompetitorMouseLeave}
-							onCompetitorCardChangeScore={this.props.onCompetitorCardChangeScore}
-							onMatchFight={this.props.onMatchFight} />
+					{matches}
 				</div>
 			</div>
 		)

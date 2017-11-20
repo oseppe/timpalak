@@ -4,55 +4,35 @@ import MatchCard from '../matchCard/matchCard'
 
 // Handles 2 ** n competitors only
 class LevelCard extends Component {
-	constructor(props) {
-		super(props);
-
-		this.state = { level: [] };
-	}
-
 	render() {
-		const competitionDataCount = this.props.competitionData.length;
+		const matchIds = this.props.matchIds;
+		const countMatchIds = matchIds.length;
+		const level = [];
 
-		// if % 4 build brackets only
-		if (competitionDataCount % 4 === 0) {
+		if (countMatchIds === 1) {
+			level.push(<MatchCard key={0} matchId={matchIds[0]} />)
+		}
+
+		else {
 			let sliceStart = 0;
-			let sliceEnd = 4;
+			let sliceEnd = 2;
 
-			const bracketCount = competitionDataCount / 4;
-			const brackets = [];
-
-			for (let i = 0; i < bracketCount; i++) {
-				let bracketCompetitors = this.props.competitionData.slice(sliceStart, sliceEnd);
-
-				brackets.push(<BracketCard key={i} 
-					bracketCompetitors={bracketCompetitors} 
-					onCompetitorCardChangeName={this.props.onCompetitorCardChangeName}
-					onCompetitorCardHover={this.props.onCompetitorCardHover} 
-					onCompetitorMouseLeave={this.props.onCompetitorMouseLeave} 
-					onCompetitorCardChangeScore={this.props.onCompetitorCardChangeScore}
-					onMatchFight={this.props.onMatchFight} />)
+			const countBrackets = countMatchIds / 2;
+			
+			for (let i = 0; i < countBrackets; i++) {
+				let bracketMatchIds = matchIds.slice(sliceStart, sliceEnd);
+				
+				level.push(<BracketCard key={i} 
+					matchIds={bracketMatchIds} />)
 
 				sliceStart = sliceEnd;
-				sliceEnd = sliceEnd + 4;
+				sliceEnd = sliceEnd + 2;
 			}
-
-			this.state.level = brackets;
-		}
-		// handle final matchcard
-		else if (competitionDataCount / 2 === 1) {
-
-			this.state.level = <MatchCard matchCompetitors={this.props.competitionData} 
-				matchNumber={this.props.competitionData[0].matchNumber}
-				onCompetitorCardChangeName={this.props.onCompetitorCardChangeName}
-				onCompetitorCardHover={this.props.onCompetitorCardHover}
-				onCompetitorMouseLeave={this.props.onCompetitorMouseLeave}
-				onCompetitorCardChangeScore={this.props.onCompetitorCardChangeScore}
-				onMatchFight={this.props.onMatchFight} />
 		}
 
 		return(
 			<div className="col m3 l2">
-				{ this.state.level }
+				{ level }
 			</div>
 		)
 	}

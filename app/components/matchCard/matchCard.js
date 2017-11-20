@@ -1,41 +1,44 @@
 import React, { Component } from 'react'
 import CompetitorCard from '../competitorCard/competitorCard'
+import { connect } from 'react-redux';
 
 class MatchCard extends Component {
-	constructor(props) {
-		super(props);
+	// constructor(props) {
+	// 	super(props);
 
-		let matchReady = this.isMatchReady(this.props.matchCompetitors[0].score, this.props.matchCompetitors[1].score);
+	// 	let matchReady = this.isMatchReady(this.props.matchCompetitors[0].score, this.props.matchCompetitors[1].score);
 
-		const visibilityBtnMatch = matchReady ? '' : 'hidden';
+	// 	const visibilityBtnMatch = matchReady ? '' : 'hidden';
 
-		this.state = { visibilityBtnMatch };
+	// 	this.state = { visibilityBtnMatch };
 
-		this.handleMatchFight = this.handleMatchFight.bind(this);
-	}
+	// 	this.handleMatchFight = this.handleMatchFight.bind(this);
+	// }
 
-	componentWillReceiveProps(nextProps) {
-		const matchReady = this.isMatchReady(nextProps.matchCompetitors[0].score, nextProps.matchCompetitors[1].score);
+	// componentWillReceiveProps(nextProps) {
+	// 	const matchReady = this.isMatchReady(nextProps.matchCompetitors[0].score, nextProps.matchCompetitors[1].score);
 
-		const visibilityBtnMatch = matchReady && !nextProps.matchCompetitors[0].isMatchFought  ? '' : 'hidden';
+	// 	const visibilityBtnMatch = matchReady && !nextProps.matchCompetitors[0].isMatchFought  ? '' : 'hidden';
 
-		this.setState({ visibilityBtnMatch });
-	}
+	// 	this.setState({ visibilityBtnMatch });
+	// }
 
-	handleMatchFight() {
-		const matchNumber = this.props.matchNumber;
-		const competitorAId = this.props.matchCompetitors[0].id;
-		const competitorBId = this.props.matchCompetitors[1].id;
-		this.props.onMatchFight(matchNumber, competitorAId, competitorBId);
+	// handleMatchFight() {
+	// 	const matchNumber = this.props.matchNumber;
+	// 	const competitorAId = this.props.matchCompetitors[0].id;
+	// 	const competitorBId = this.props.matchCompetitors[1].id;
+	// 	this.props.onMatchFight(matchNumber, competitorAId, competitorBId);
 
-		this.setState({ visibilityBtnMatch: 'hidden' });
-	}
+	// 	this.setState({ visibilityBtnMatch: 'hidden' });
+	// }
 
-	isMatchReady(scoreA, scoreB) {
-		return scoreA.trim() !== '' && scoreB !== '' && !isNaN(scoreA) && !isNaN(scoreB)
-	}
+	// isMatchReady(scoreA, scoreB) {
+	// 	return scoreA.trim() !== '' && scoreB !== '' && !isNaN(scoreA) && !isNaN(scoreB)
+	// }
 
 	render() {
+		// console.log('Match Card');
+		// console.log(this.props.match);
 		return(
 			<div className="row" style={{
 				width: "150px",
@@ -44,7 +47,7 @@ class MatchCard extends Component {
 					margin: 0,
 					padding: 0,
 				}}>
-					{this.props.matchNumber + 1}
+					
 				</div>
 				<div className="col s10" style={{
 					backgroundColor: "#34495e",
@@ -53,21 +56,14 @@ class MatchCard extends Component {
 					minHeight: 60,
 					marginBottom: '3px',
 				}}>
-					<CompetitorCard competitor={ this.props.matchCompetitors[0] }
-						onCompetitorCardChangeName={this.props.onCompetitorCardChangeName} 
-						onCompetitorCardHover={ this.props.onCompetitorCardHover }
-						onCompetitorMouseLeave={this.props.onCompetitorMouseLeave}
-						onCompetitorCardChangeScore={this.props.onCompetitorCardChangeScore} />
-					<CompetitorCard competitor={ this.props.matchCompetitors[1] }
-						onCompetitorCardChangeName={this.props.onCompetitorCardChangeName} 
-						onCompetitorCardHover={ this.props.onCompetitorCardHover }
-						onCompetitorMouseLeave={this.props.onCompetitorMouseLeave}
-						onCompetitorCardChangeScore={this.props.onCompetitorCardChangeScore} />
+					<CompetitorCard playerId={ this.props.match.playerA }
+						playerScore={ this.props.match.scoreA }
+						matchId = { this.props.matchId } />
+					<CompetitorCard playerId={ this.props.match.playerB }
+						playerScore={ this.props.match.scoreB } />
 				</div>
-				<div style={{
-					visibility: `${this.state.visibilityBtnMatch}`,
-				}}>
-					<button className="btn waves-effect waves-light col s10" onClick={this.handleMatchFight}>
+				<div>
+					<button className="btn waves-effect waves-light col s10">
 						Fight
   				</button>
 				</div>
@@ -76,4 +72,20 @@ class MatchCard extends Component {
 	}
 }
 
-export default MatchCard;
+// style={{
+// 	visibility: `${this.state.visibilityBtnMatch}`,
+// }}
+// onClick={this.handleMatchFight}
+// {this.props.matchNumber + 1}
+
+function mapStateToProps(state, props) {
+	// console.log('state');
+	// console.log(state);
+	// console.log('props');
+	// console.log(props);
+	const match = state.matches[props.matchId];
+
+	return { match }
+}
+
+export default connect(mapStateToProps)(MatchCard);

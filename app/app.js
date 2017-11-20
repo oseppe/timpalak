@@ -3,7 +3,7 @@ import { render } from 'react-dom'
 import LevelCard from './components/levelCard/levelCard'
 import { CHANGE_NAME, MOUSE_HOVER_COMPETITOR_CARD, MOUSE_LEAVE_COMPETITOR_CARD, CHANGE_SCORE, START_MATCH, START_NEW_COMPETITION } from './actionTypes';
 import { store } from './store';
-import { buildCompetitionData, copyCompetitorData, generateCompetitors, nextMatchNumber, nextMatchCompetitorNumber } from './utility/utility'
+import { copyCompetitorData, generateCompetitors, nextMatchNumber, nextMatchCompetitorNumber } from './utility/utility'
 import { Provider, connect } from 'react-redux';
 
 
@@ -147,30 +147,15 @@ class Board extends Component {
 	}
 
 	render() {
-		const { handleStartNew } = this.props;
-		const competitorsCount = this.state.competitors.length;
-
-		const levelsCount = competitorsCount === 0 ? 0 : Math.log2(competitorsCount);
-
+		const handleStartNew = this.props.handleStartNew;
+		const levelsData = this.props.levels;
 		const levels = [];
-		let competitorCountInLevel = competitorsCount;
-		let startSlice = 0;
-		let endSlice = competitorCountInLevel;
 
-		for (let i = 0; i < levelsCount; i++) {
-			const levelCompetitionData = this.state.competitionData.slice(startSlice, endSlice);
-
+		const countLevels = Object.keys(levelsData).length;
+		
+		for (let i = 0; i < countLevels; i++) {
 			levels.push(<LevelCard key={i}
-				competitionData={levelCompetitionData} 
-				onCompetitorCardHover={this.onCompetitorCardHover}
-				onCompetitorMouseLeave={this.onCompetitorCardMouseLeave}
-				onCompetitorCardChangeName={this.onCompetitorCardChangeName} 
-				onCompetitorCardChangeScore={this.onCompetitorCardChangeScore}
-				onMatchFight={this.onMatchFight} />);
-
-			competitorCountInLevel = competitorCountInLevel / 2;
-			startSlice = endSlice;
-			endSlice = endSlice + competitorCountInLevel;
+				matchIds={levelsData[i]} />)
 		}
 
 		return(
@@ -196,8 +181,9 @@ const startNewCompetition = {type: START_NEW_COMPETITION};
 
 function mapStateToProps(state) {
 	return {
-		competitors: state.competitors,
-		competitionData: state.competitionData,
+		players: state.players,
+		matches: state.matches,
+		levels: state.levels
 	}
 }
 

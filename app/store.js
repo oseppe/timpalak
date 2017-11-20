@@ -3,5 +3,5 @@ import { buildCompetitionData, generateCompetitors } from './utility/utility'
 import reducer from './reducer';
 
 export const store = createStore(reducer, 
-	{competitors: [], competitionData: []}, 
+	{players: {}, matches: {}, levels: {}}, 
 	window.devToolsExtension ? window.devToolsExtension() : undefined);
