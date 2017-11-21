@@ -47,7 +47,7 @@ class MatchCard extends Component {
 					margin: 0,
 					padding: 0,
 				}}>
-					
+					{ this.props.matchNumber }
 				</div>
 				<div className="col s10" style={{
 					backgroundColor: "#34495e",
@@ -76,16 +76,12 @@ class MatchCard extends Component {
 // 	visibility: `${this.state.visibilityBtnMatch}`,
 // }}
 // onClick={this.handleMatchFight}
-// {this.props.matchNumber + 1}
 
 function mapStateToProps(state, props) {
-	// console.log('state');
-	// console.log(state);
-	// console.log('props');
-	// console.log(props);
 	const match = state.matches[props.matchId];
+	const matchNumber = +props.matchId + 1;
 
-	return { match }
+	return { match, matchNumber }
 }
 
 export default connect(mapStateToProps)(MatchCard);
