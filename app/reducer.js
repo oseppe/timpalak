@@ -13,6 +13,7 @@ export default (state={}, action) => {
 			
 		case CHANGE_SCORE:
 			newState.matches[action.matchId].isMatchFought = false;
+			newState.matches[action.matchId].winner = '';
 			newState.matches[action.matchId].players.map((item) => {
 				if (item.id === action.id) item.score = action.score
 

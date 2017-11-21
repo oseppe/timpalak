@@ -6,15 +6,6 @@ class CompetitorScore extends Component {
 	constructor(props) {
 		super(props);
 
-		// this.state = {
-		// 	id: this.props.id,
-		// 	matchNumber: this.props.matchNumber,
-		// 	backgroundColor: this.getBackgroundColor(this.props.isWinner),
-		// 	score: this.props.score,
-		// 	inputDisplay: 'none',
-		// 	textDisplay: '',
-		// };
-
 		this.handleChange = this.handleChange.bind(this);
 	}
 
@@ -33,7 +24,7 @@ class CompetitorScore extends Component {
 			<div className="col s3" style={{
 				padding: "5px",
 				textAlign: "center",
-				backgroundColor: "#46637f",
+				backgroundColor: `${this.props.backgroundColor}`,
 			}}>
 				<div 
 					style={{
@@ -69,11 +60,17 @@ const mapDispatchToProps = ({
 })
 
 function mapStateToProps(state, props) {
-	const players = state.matches[props.matchId].players.filter((elem) => { return elem.id === props.playerId });
+	const filteredPlayers = state.matches[props.matchId].players.filter((elem) => { return elem.id === props.playerId });
 
-	const score = players.length === 0 ? 'x' : players[0].score;
+	const score = filteredPlayers.length === 0 ? 'x' : filteredPlayers[0].score;
 
-	return { score }
+	const matchWinnerId = state.matches[props.matchId].winner;
+
+	const backgroundColor = matchWinnerId !== '' && matchWinnerId === filteredPlayers[0].id ? 
+		'#d35400' :
+		'#46637f';
+
+	return { score, backgroundColor }
 }
 
 export default  connect(mapStateToProps, mapDispatchToProps)(CompetitorScore);
