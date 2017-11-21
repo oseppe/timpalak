@@ -18,23 +18,6 @@ class CompetitorScore extends Component {
 		this.handleChange = this.handleChange.bind(this);
 	}
 
-	// componentWillReceiveProps(nextProps) {
-	// 	if (nextProps.score !== this.props.score) {
-	// 		this.setState({ score: nextProps.score, });
-	// 	};
-
-	// 	if (nextProps.id !== this.props.id) {
-	// 		this.setState({ id: nextProps.id });
-	// 	};
-
-	// 	if (nextProps.isWinner !== this.props.isWinner) {
-	// 		this.setState({
-	// 			backgroundColor: this.getBackgroundColor(nextProps.isWinner),
-	// 		});
-	// 	}
-
-	// }
-
 	handleChange(e) {
 		const score = e.target.value;
 

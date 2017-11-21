@@ -1,4 +1,4 @@
-import {CHANGE_NAME, MOUSE_HOVER_COMPETITOR_CARD, MOUSE_LEAVE_COMPETITOR_CARD, CHANGE_SCORE, START_MATCH, START_NEW_COMPETITION} from './actionTypes';
+import {CHANGE_NAME, MOUSE_ENTER_COMPETITOR_CARD, MOUSE_LEAVE_COMPETITOR_CARD, CHANGE_SCORE, START_MATCH, START_NEW_COMPETITION} from './actionTypes';
 import { generateCompetitors, nextMatchNumber, nextMatchCompetitorNumber, buildData } from './utility/utility'
 
 export default (state={}, action) => {
@@ -21,6 +21,25 @@ export default (state={}, action) => {
 
 			return newState;
 
+		case MOUSE_ENTER_COMPETITOR_CARD: {
+			if (action.playerId.trim() === '') return newState;
+
+			const player = newState.players[action.playerId];
+			player.hover = true;
+
+			return newState;
+		}
+			
+
+		case MOUSE_LEAVE_COMPETITOR_CARD: {
+			if (action.playerId.trim() === '') return newState;
+
+			const player = newState.players[action.playerId];
+			player.hover = false;
+
+			return newState;
+		}
+			
 		case START_MATCH:
 			const match = newState.matches[action.matchId];
 

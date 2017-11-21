@@ -1,56 +1,12 @@
 import React, { Component } from 'react'
 import { render } from 'react-dom'
 import LevelCard from './components/levelCard/levelCard'
-import { CHANGE_NAME, MOUSE_HOVER_COMPETITOR_CARD, MOUSE_LEAVE_COMPETITOR_CARD, CHANGE_SCORE, START_MATCH, START_NEW_COMPETITION } from './actionTypes';
+import { START_NEW_COMPETITION } from './actionTypes';
 import { store } from './store';
 import { Provider, connect } from 'react-redux';
 
 
 class Board extends Component {
-	constructor(props) {
-		super(props);
-
-		const competitors = this.props.competitors;
-
-		const competitionData = this.props.competitionData;
-		
-		this.state = {
-			competitionData,
-			competitors,
-		};
-
-		this.onCompetitorCardHover = this.onCompetitorCardHover.bind(this);
-		this.onCompetitorCardMouseLeave = this.onCompetitorCardMouseLeave.bind(this);
-	}
-
-	onCompetitorCardHover(id) {
-		const oldCompetitionData = this.state.competitionData;
-
-		const competitionData = oldCompetitionData.map((item, index) => {
-			if (item.id !== '' && item.id === id) {
-				item.hover = true;
-			}
-			
-			return item;
-		});
-
-		this.setState({competitionData});
-	}
-
-	onCompetitorCardMouseLeave(competitorName) {
-		const oldCompetitionData = this.state.competitionData;
-
-		const competitionData = oldCompetitionData.map((item, index) => {
-			if (item.name !== '' && item.name === competitorName) {
-				item.hover = false;
-			}
-			
-			return item;
-		});
-
-		this.setState({competitionData});
-	}
-
 	render() {
 		const handleStartNew = this.props.handleStartNew;
 		const levelsData = this.props.levels;

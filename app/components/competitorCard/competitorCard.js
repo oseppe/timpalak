@@ -1,33 +1,30 @@
 import React, { Component } from 'react'
 import CompetitorName from '../competitorName/competitorName'
 import CompetitorScore from '../competitorScore/competitorScore'
+import { connect } from 'react-redux';
+import { MOUSE_ENTER_COMPETITOR_CARD, MOUSE_LEAVE_COMPETITOR_CARD } from '../../actionTypes';
 
 class CompetitorCard extends Component {
-	// constructor(props) {
-	// 	super(props);
+	constructor(props) {
+		super(props);
 
-	// 	this.state = { backgroundColor: '' };
+		this.handleOnMouseEnter = this.handleOnMouseEnter.bind(this);
+		this.handleOnMouseLeave = this.handleOnMouseLeave.bind(this);
+	}
 
-	// 	this.handleOnHover = this.handleOnHover.bind(this);
-	// 	this.handleOnMouseLeave = this.handleOnMouseLeave.bind(this);
-	// }
+	handleOnMouseEnter() {
+		this.props.mouseEnterCompetitorCard(this.props.playerId);
+	}
 
-	// componentWillReceiveProps() {
-	// 	const backgroundColor = this.props.competitor.hover ? 'red' : '';
-	// 	this.setState({ backgroundColor });
-	// }
-
-	// handleOnHover() {
-	// 	this.props.onCompetitorCardHover(this.props.competitor.id);
-	// }
-
-	// handleOnMouseLeave() {
-	// 	this.props.onCompetitorMouseLeave(this.props.competitor.name);
-	// }
+	handleOnMouseLeave() {
+		this.props.mouseLeaveCompetitorCard(this.props.playerId);
+	}
 
 	render() {
 		return(
 			<div className="row" 
+				onMouseEnter={this.handleOnMouseEnter}
+				onMouseLeave={this.handleOnMouseLeave}
 				style={{
 				margin: 0,
 			}}>
@@ -40,13 +37,21 @@ class CompetitorCard extends Component {
 	}
 }
 
-// onMouseOver={this.handleOnHover} 
-// onMouseLeave={this.handleOnMouseLeave}
-
-// backgroundColor={this.state.backgroundColor}
-
 // isWinner={this.props.competitor.isWinner} 
-// backgroundColor={this.state.backgroundColor}
-// onCompetitorCardChangeScore={this.props.onCompetitorCardChangeScore} 
 
-export default CompetitorCard;
+const mouseEnterCompetitorCard = (playerId) => ({
+	type: MOUSE_ENTER_COMPETITOR_CARD,
+	playerId
+})
+
+const mouseLeaveCompetitorCard = (playerId) => ({
+	type: MOUSE_LEAVE_COMPETITOR_CARD,
+	playerId
+})
+
+const mapDispatchToProps = ({
+	mouseEnterCompetitorCard,
+	mouseLeaveCompetitorCard
+})
+
+export default connect(null, mapDispatchToProps)(CompetitorCard);

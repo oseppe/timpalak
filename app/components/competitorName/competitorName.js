@@ -17,6 +17,7 @@ class CompetitorName extends Component {
 	render() {
 		return(
 			<div className="col s9" style={{
+				backgroundColor: `${this.props.backgroundColor}`,
 				color: "#ffffff",
 				padding: "5px"
 			}}>
@@ -38,7 +39,7 @@ class CompetitorName extends Component {
 
 // {this.props.player.name}
 
-// backgroundColor: `${this.props.backgroundColor}`,
+// 
 
 // onClick={ this.handleMouseClick } 
 // 					style={{
@@ -70,9 +71,9 @@ const mapDispatchToProps = ({
 })
 
 function mapStateToProps(state, props) {
-	const player = props.playerId === '' ? { name: ''} : state.players[props.playerId];
-
-	return { player }
+	const player = props.playerId === '' ? { name: '', hover: false} : state.players[props.playerId];
+	const backgroundColor = player.hover ? '#c0392b' : '';
+	return { player, backgroundColor }
 }
 
 export default  connect(mapStateToProps, mapDispatchToProps)(CompetitorName);
