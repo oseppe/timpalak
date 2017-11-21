@@ -62,7 +62,9 @@ class MatchCard extends Component {
 						matchId = { this.props.matchId } />
 				</div>
 				<div>
-					<button className="btn waves-effect waves-light col s10">
+					<button className="btn waves-effect waves-light col s10" style={{
+							visibility: `${this.props.visibilityBtnMatch}`,
+					}}>
 						Fight
   				</button>
 				</div>
@@ -71,16 +73,21 @@ class MatchCard extends Component {
 	}
 }
 
-// style={{
-// 	visibility: `${this.state.visibilityBtnMatch}`,
-// }}
+
 // onClick={this.handleMatchFight}
 
 function mapStateToProps(state, props) {
 	const match = state.matches[props.matchId];
 	const matchNumber = +props.matchId + 1;
 
-	return { match, matchNumber }
+	let matchReady = true;
+
+	match.players.map((elem) => {
+		matchReady = matchReady && elem.score.trim() !== '' && !isNaN(elem.score)
+	});
+
+	const visibilityBtnMatch = !match.isMatchFought && matchReady ? '' : 'hidden';
+	return { match, matchNumber, visibilityBtnMatch }
 }
 
 export default connect(mapStateToProps)(MatchCard);

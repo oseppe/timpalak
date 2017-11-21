@@ -39,6 +39,7 @@ class CompetitorScore extends Component {
 	handleChange(e) {
 		const score = e.target.value;
 
+		// TODO: problem when score is not updated when invalid input. problem is the fight btn is not aware of the invalid input cos store had not been updated
     if (score.trim() === '' || isNaN(score)) return;
     
     this.props.changeScore(score, this.props.playerId, this.props.matchId);
@@ -47,7 +48,7 @@ class CompetitorScore extends Component {
  //  getBackgroundColor(isWinner) {
  //  	return isWinner ? "#d35400" : "#46637f";
  //  }
- 
+
  //  handleMouseClick() {
  //  	if(this.state.id.trim() === '') return;
 	// 	this.setState({ inputDisplay: '', textDisplay: 'none' });
