@@ -56,11 +56,10 @@ class MatchCard extends Component {
 					minHeight: 60,
 					marginBottom: '3px',
 				}}>
-					<CompetitorCard playerId={ this.props.match.playerA }
-						playerScore={ this.props.match.scoreA }
+					<CompetitorCard playerId={ this.props.match.players[0].id }
 						matchId = { this.props.matchId } />
-					<CompetitorCard playerId={ this.props.match.playerB }
-						playerScore={ this.props.match.scoreB } />
+					<CompetitorCard playerId={ this.props.match.players[1].id }
+						matchId = { this.props.matchId } />
 				</div>
 				<div>
 					<button className="btn waves-effect waves-light col s10">

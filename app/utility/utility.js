@@ -36,10 +36,10 @@ function buildMatches(players) {
 	// construct first level
 	for (let i = 0; i < countPlayers; i = i + 2) {
 		const match = {
-			playerA: `${i}`,
-			playerB: `${i + 1}`,
-			scoreA: 'x',
-			scoreB: 'x',
+			players: [ 
+				{ id: `${i}`, score: 'x' },
+				{ id: `${i + 1}`, score: 'x' }
+			],
 			winner: '',
 			isMatchFought: false,
 		}
@@ -51,10 +51,10 @@ function buildMatches(players) {
 
 	for (let i = currentMatch; i < totalMatches; i++) {
 		const match = {
-			playerA: '',
-			playerB: '',
-			scoreA: 'x',
-			scoreB: 'x',
+			players: [ 
+				{ id: '', score: 'x' },
+				{ id: '', score: 'x' }
+			],
 			winner: '',
 			isMatchFought: false,
 		}

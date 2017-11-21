@@ -1,7 +1,6 @@
 import React, { Component } from 'react'
 import CompetitorName from '../competitorName/competitorName'
 import CompetitorScore from '../competitorScore/competitorScore'
-import { connect } from 'react-redux';
 
 class CompetitorCard extends Component {
 	// constructor(props) {
@@ -33,8 +32,8 @@ class CompetitorCard extends Component {
 				margin: 0,
 			}}>
 				<CompetitorName playerId={this.props.playerId} />
-				<CompetitorScore score={this.props.score}
-					id={this.props.playerId}
+				<CompetitorScore 
+					playerId={this.props.playerId}
 					matchId={this.props.matchId} />
 			</div>
 		)
@@ -45,22 +44,9 @@ class CompetitorCard extends Component {
 // onMouseLeave={this.handleOnMouseLeave}
 
 // backgroundColor={this.state.backgroundColor}
-// onCompetitorCardChangeName={this.props.onCompetitorCardChangeName}
 
 // isWinner={this.props.competitor.isWinner} 
 // backgroundColor={this.state.backgroundColor}
 // onCompetitorCardChangeScore={this.props.onCompetitorCardChangeScore} 
 
-function mapStateToProps(state, props) {
-
-	const player = props.playerId === '' ? { name: ''} : state.players[props.playerId];
-	// console.log('competitorCard');
-	// console.log('state');
-	// console.log(state);
-	// console.log('props');
-	// console.log(props);
-	// console.log('--------');
-	return { player }
-}
-
-export default connect(mapStateToProps)(CompetitorCard);
+export default CompetitorCard;
