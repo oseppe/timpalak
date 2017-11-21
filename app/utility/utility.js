@@ -1,6 +1,3 @@
-import BracketCard from '../components/bracketCard/bracketCard'
-import React from 'react'
-
 function buildData(playerList) {
 	const players = buildPlayers(playerList);
 

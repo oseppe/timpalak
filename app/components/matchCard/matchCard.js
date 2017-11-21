@@ -77,10 +77,7 @@ function mapStateToProps(state, props) {
 
 	const visibilityBtnMatch = !match.isMatchFought && matchReady ? '' : 'hidden';
 
-	const playerAId = match.players[0].id;
-	const playerBId = match.players[1].id;
-
-	return { match, matchNumber, visibilityBtnMatch, playerAId, playerBId }
+	return { match, matchNumber, visibilityBtnMatch }
 }
 
 export default connect(mapStateToProps, mapDispatchToProps)(MatchCard);

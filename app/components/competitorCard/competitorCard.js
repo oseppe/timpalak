@@ -37,8 +37,6 @@ class CompetitorCard extends Component {
 	}
 }
 
-// isWinner={this.props.competitor.isWinner} 
-
 const mouseEnterCompetitorCard = (playerId) => ({
 	type: MOUSE_ENTER_COMPETITOR_CARD,
 	playerId

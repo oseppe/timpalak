@@ -15,10 +15,6 @@ class CompetitorScore extends Component {
     this.props.changeScore(score, this.props.playerId, this.props.matchId);
   }
 
- //  getBackgroundColor(isWinner) {
- //  	return isWinner ? "#d35400" : "#46637f";
- //  }
-
 	render() {
 		return(
 			<div className="col s3" style={{
@@ -46,8 +42,6 @@ class CompetitorScore extends Component {
 	}
 }
 
-// backgroundColor: `${this.state.backgroundColor}`, 
-
 const changeScore = (score, id, matchId) => ({
 	type: CHANGE_SCORE,
 	score,
@@ -74,4 +68,3 @@ function mapStateToProps(state, props) {
 }
 
 export default  connect(mapStateToProps, mapDispatchToProps)(CompetitorScore);
-

@@ -2,7 +2,6 @@ import {CHANGE_NAME, MOUSE_ENTER_COMPETITOR_CARD, MOUSE_LEAVE_COMPETITOR_CARD, C
 import { generateCompetitors, nextMatchNumber, nextMatchCompetitorNumber, buildData } from './utility/utility'
 
 export default (state={}, action) => {
-	// const newState = Object.assign({}, state);
 	const newState = JSON.parse(JSON.stringify(state));
 
 	switch(action.type) {

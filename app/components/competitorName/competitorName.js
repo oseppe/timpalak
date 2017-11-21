@@ -37,29 +37,6 @@ class CompetitorName extends Component {
 	}
 }
 
-// {this.props.player.name}
-
-// 
-
-// onClick={ this.handleMouseClick } 
-// 					style={{
-// 					display: `${this.state.textDisplay}`
-// 				}}
-
-//<div onClick={ this.handleMouseClick } style={{
-//	display: `${this.state.inputDisplay}`,
-//}}>
-//	<input type='text'
-//	ref='textInput'
-//	value={this.state.name} 
-//	onChange={this.handleChange}
-//	onKeyPress={this.handleKeyPress} 
-//	style={{
-//		height: 'inherit',
-//		margin: 0,
-//	}}/>
-//</div>
-
 const changeName = (name, id) => ({
 	type: CHANGE_NAME,
 	name,
@@ -77,4 +54,3 @@ function mapStateToProps(state, props) {
 }
 
 export default  connect(mapStateToProps, mapDispatchToProps)(CompetitorName);
-
