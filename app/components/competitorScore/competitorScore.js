@@ -16,7 +16,6 @@ class CompetitorScore extends Component {
 		// };
 
 		this.handleChange = this.handleChange.bind(this);
-		// this.handleMouseClick = this.handleMouseClick.bind(this);
 	}
 
 	// componentWillReceiveProps(nextProps) {
@@ -46,11 +45,6 @@ class CompetitorScore extends Component {
  //  	return isWinner ? "#d35400" : "#46637f";
  //  }
 
- //  handleMouseClick() {
- //  	if(this.state.id.trim() === '') return;
-	// 	this.setState({ inputDisplay: '', textDisplay: 'none' });
-	// }
-
 	render() {
 		return(
 			<div className="col s3" style={{
@@ -79,9 +73,6 @@ class CompetitorScore extends Component {
 }
 
 // backgroundColor: `${this.state.backgroundColor}`, 
-
-// onClick={ this.handleMouseClick } 
-// display: `${this.state.textDisplay}`,
 
 const changeScore = (score, id, matchId) => ({
 	type: CHANGE_SCORE,

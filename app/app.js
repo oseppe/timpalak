@@ -3,7 +3,6 @@ import { render } from 'react-dom'
 import LevelCard from './components/levelCard/levelCard'
 import { CHANGE_NAME, MOUSE_HOVER_COMPETITOR_CARD, MOUSE_LEAVE_COMPETITOR_CARD, CHANGE_SCORE, START_MATCH, START_NEW_COMPETITION } from './actionTypes';
 import { store } from './store';
-import { copyCompetitorData, generateCompetitors, nextMatchNumber, nextMatchCompetitorNumber } from './utility/utility'
 import { Provider, connect } from 'react-redux';
 
 
@@ -20,32 +19,8 @@ class Board extends Component {
 			competitors,
 		};
 
-		this.onCompetitorCardChangeScore = this.onCompetitorCardChangeScore.bind(this);
 		this.onCompetitorCardHover = this.onCompetitorCardHover.bind(this);
 		this.onCompetitorCardMouseLeave = this.onCompetitorCardMouseLeave.bind(this);
-	}
-
-	componentWillReceiveProps(nextProps) {
-		const {competitors, competitionData} = this.props;
-		this.setState({ competitors, competitionData });
-	}
-
-	onCompetitorCardChangeScore(score, id, matchNumber) {
-		const oldCompetitionData = this.state.competitionData;
-
-		const competitionData = oldCompetitionData.map((item, index) => {
-			if (item.id === '') return item;
-			if (item.matchNumber !== matchNumber) return item;
-			if (item.id === id) item.score = score;
-			
-			item.isMatchFought = false;
-			item.isWinner = false;
-
-			return item;
-		});
-
-		this.setState({ competitionData });
-		// console.log(competitionData);
 	}
 
 	onCompetitorCardHover(id) {

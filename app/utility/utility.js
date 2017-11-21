@@ -89,22 +89,6 @@ function buildLevels(matches) {
 	return levels;
 }
 
-function copyCompetitorData(competitor) {
-	const clonedCompetitor = { ...competitor };
-
-	// clonedCompetitor.id = competitor.id;
-	// clonedCompetitor.level = competitor.level;
-	// clonedCompetitor.name = competitor.name;
-	// clonedCompetitor.score = competitor.score;
-	// clonedCompetitor.isWinner = competitor.isWinner;
-	// clonedCompetitor.matchNumber = competitor.matchNumber;
-	// clonedCompetitor.matchCompetitorNumber = competitor.matchCompetitorNumber;
-	// clonedCompetitor.isMatchFought = competitor.isMatchFought;
-	// clonedCompetitor.hover = competitor.hover;
-
-	return clonedCompetitor;
-}
-
 function generateCompetitors() {
 	const list = [
 		'Aatrox', 'Ahri', 'Akali', 'Alistar', 'Amumu', 'Anivia',
@@ -188,4 +172,4 @@ function nextMatchCompetitorNumber(matchNumber) {
 	return matchCompetitorNumberDirectory[matchNumber]
 }
 
-export { copyCompetitorData, generateCompetitors, nextMatchNumber, nextMatchCompetitorNumber, buildPlayers, buildMatches, buildLevels, buildData };
+export { generateCompetitors, nextMatchNumber, nextMatchCompetitorNumber, buildPlayers, buildMatches, buildLevels, buildData };
