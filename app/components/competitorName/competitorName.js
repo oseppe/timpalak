@@ -22,7 +22,7 @@ class CompetitorName extends Component {
 			}}>
 				<div >
 					<input type='text'
-						defaultValue={this.props.player.name} 
+						value={this.props.player.name} 
 						onChange={this.handleChange}
 						style={{
 							height: 'inherit',

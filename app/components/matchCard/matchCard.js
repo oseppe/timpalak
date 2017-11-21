@@ -1,44 +1,25 @@
 import React, { Component } from 'react'
 import CompetitorCard from '../competitorCard/competitorCard'
 import { connect } from 'react-redux';
+import { START_MATCH } from '../../actionTypes';
 
 class MatchCard extends Component {
-	// constructor(props) {
-	// 	super(props);
+	constructor(props) {
+		super(props);
 
-	// 	let matchReady = this.isMatchReady(this.props.matchCompetitors[0].score, this.props.matchCompetitors[1].score);
+		this.handleMatchFight = this.handleMatchFight.bind(this);
+	}
 
-	// 	const visibilityBtnMatch = matchReady ? '' : 'hidden';
+	handleMatchFight() {
+		this.props.startMatch(this.props.matchId);
+	}
 
-	// 	this.state = { visibilityBtnMatch };
-
-	// 	this.handleMatchFight = this.handleMatchFight.bind(this);
-	// }
-
-	// componentWillReceiveProps(nextProps) {
-	// 	const matchReady = this.isMatchReady(nextProps.matchCompetitors[0].score, nextProps.matchCompetitors[1].score);
-
-	// 	const visibilityBtnMatch = matchReady && !nextProps.matchCompetitors[0].isMatchFought  ? '' : 'hidden';
-
-	// 	this.setState({ visibilityBtnMatch });
-	// }
-
-	// handleMatchFight() {
-	// 	const matchNumber = this.props.matchNumber;
-	// 	const competitorAId = this.props.matchCompetitors[0].id;
-	// 	const competitorBId = this.props.matchCompetitors[1].id;
-	// 	this.props.onMatchFight(matchNumber, competitorAId, competitorBId);
-
-	// 	this.setState({ visibilityBtnMatch: 'hidden' });
-	// }
-
-	// isMatchReady(scoreA, scoreB) {
-	// 	return scoreA.trim() !== '' && scoreB !== '' && !isNaN(scoreA) && !isNaN(scoreB)
-	// }
+	componentDidUpdate(prevProps) {
+		this.props.matchId === 9 && console.log(prevProps);
+	}
 
 	render() {
-		// console.log('Match Card');
-		// console.log(this.props.match);
+		
 		return(
 			<div className="row" style={{
 				width: "150px",
@@ -62,7 +43,9 @@ class MatchCard extends Component {
 						matchId = { this.props.matchId } />
 				</div>
 				<div>
-					<button className="btn waves-effect waves-light col s10" style={{
+					<button className="btn waves-effect waves-light col s10"
+						onClick={this.handleMatchFight}
+						style={{
 							visibility: `${this.props.visibilityBtnMatch}`,
 					}}>
 						Fight
@@ -73,8 +56,14 @@ class MatchCard extends Component {
 	}
 }
 
+const startMatch = (matchId) => ({
+	type: START_MATCH,
+	matchId
+})
 
-// onClick={this.handleMatchFight}
+const mapDispatchToProps = ({
+	startMatch
+})
 
 function mapStateToProps(state, props) {
 	const match = state.matches[props.matchId];
@@ -87,7 +76,11 @@ function mapStateToProps(state, props) {
 	});
 
 	const visibilityBtnMatch = !match.isMatchFought && matchReady ? '' : 'hidden';
-	return { match, matchNumber, visibilityBtnMatch }
+
+	const playerAId = match.players[0].id;
+	const playerBId = match.players[1].id;
+
+	return { match, matchNumber, visibilityBtnMatch, playerAId, playerBId }
 }
 
-export default connect(mapStateToProps)(MatchCard);
+export default connect(mapStateToProps, mapDispatchToProps)(MatchCard);

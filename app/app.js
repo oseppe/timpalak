@@ -23,8 +23,6 @@ class Board extends Component {
 		this.onCompetitorCardChangeScore = this.onCompetitorCardChangeScore.bind(this);
 		this.onCompetitorCardHover = this.onCompetitorCardHover.bind(this);
 		this.onCompetitorCardMouseLeave = this.onCompetitorCardMouseLeave.bind(this);
-		this.onMatchFight = this.onMatchFight.bind(this);
-		this.handleRestart = this.handleRestart.bind(this);
 	}
 
 	componentWillReceiveProps(nextProps) {
@@ -76,59 +74,6 @@ class Board extends Component {
 		});
 
 		this.setState({competitionData});
-	}
-
-	onMatchFight(matchNumber, competitorAId, competitorBId) {
-		console.log(`match: ${matchNumber}`);
-		const oldCompetitionData = this.state.competitionData;
-
-		const competitorA = oldCompetitionData.find((competitor) => {
-			return competitor.matchNumber === matchNumber && competitor.id === competitorAId;
-		});
-
-		const competitorB = oldCompetitionData.find((competitor) => {
-			return competitor.matchNumber === matchNumber && competitor.id === competitorBId;
-		});
-
-		const winner = competitorA.score > competitorB.score ? competitorA : competitorB;
-		
-		const victor = copyCompetitorData(winner);
-		victor.isMatchFought = false;
-		victor.level = winner.level + 1;
-		victor.matchNumber = nextMatchNumber(winner.matchNumber);
-		victor.matchCompetitorNumber = nextMatchCompetitorNumber(winner.matchNumber);
-		victor.score = 'x';
-
-		const competitionData = oldCompetitionData.map((item, index) => {
-			if (item.matchNumber === matchNumber 
-				&& (item.id === competitorAId || item.id === competitorBId)) {
-				item.isMatchFought = true;
-			}
-
-			if (item.matchNumber === victor.matchNumber && item.matchCompetitorNumber === victor.matchCompetitorNumber) {
-				item = victor;
-			}
-
-			if (item.id === winner.id && item.matchNumber === winner.matchNumber) {
-				item.isWinner = true;
-			}
-
-			// TODO: investigate why not returning item here seems 
-			// to insert two undefined in competition data
-			return item;
-		});
-
-		console.log(competitionData);
-
-		this.setState({ competitionData });
-	}
-
-	handleRestart() {
-		const competitors = generateCompetitors();
-
-		const competitionData = buildCompetitionData(competitors);
-
-		this.setState({ competitors, competitionData });
 	}
 
 	render() {
