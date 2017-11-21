@@ -1,7 +1,7 @@
 import React, { Component } from 'react'
 import CompetitorName from '../competitorName/competitorName'
 import CompetitorScore from '../competitorScore/competitorScore'
-import { Provider, connect } from 'react-redux';
+import { connect } from 'react-redux';
 
 class CompetitorCard extends Component {
 	// constructor(props) {
@@ -32,8 +32,7 @@ class CompetitorCard extends Component {
 				style={{
 				margin: 0,
 			}}>
-				<CompetitorName name={this.props.player.name}
-					id={this.props.playerId} />
+				<CompetitorName playerId={this.props.playerId} />
 				<CompetitorScore score={this.props.score}
 					id={this.props.playerId}
 					matchId={this.props.matchId} />

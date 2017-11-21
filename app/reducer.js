@@ -3,6 +3,14 @@ import { copyCompetitorData, generateCompetitors, nextMatchNumber, nextMatchComp
 
 export default (state={}, action) => {
 	switch(action.type) {
+		case CHANGE_NAME: {
+			const newState = Object.assign({}, state);
+			
+			newState.players[action.id].name = action.name;
+			
+			return newState;
+		}
+			
 		// case CHANGE_SCORE:
 		// 	const newState = state.map((item, index) => {
 		// 		const newItem = { ...item };
@@ -21,9 +29,7 @@ export default (state={}, action) => {
 		case START_NEW_COMPETITION:
 			const competitors = generateCompetitors();
 
-			const newState = buildData(competitors);
-
-			return Object.assign({}, newState);
+			return Object.assign({}, buildData(competitors));
 		default:
 			return state;
 	}

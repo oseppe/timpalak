@@ -20,7 +20,6 @@ class Board extends Component {
 			competitors,
 		};
 
-		this.onCompetitorCardChangeName = this.onCompetitorCardChangeName.bind(this);
 		this.onCompetitorCardChangeScore = this.onCompetitorCardChangeScore.bind(this);
 		this.onCompetitorCardHover = this.onCompetitorCardHover.bind(this);
 		this.onCompetitorCardMouseLeave = this.onCompetitorCardMouseLeave.bind(this);
@@ -31,20 +30,6 @@ class Board extends Component {
 	componentWillReceiveProps(nextProps) {
 		const {competitors, competitionData} = this.props;
 		this.setState({ competitors, competitionData });
-	}
-
-	onCompetitorCardChangeName(competitorName, id) {
-		const oldCompetitionData = this.state.competitionData;
-
-		const competitionData = oldCompetitionData.map((item, index) => {
-			if (item.id !== '' && item.id === id) {
-				item.name = competitorName;
-			}
-			
-			return item;
-		});
-
-		this.setState({competitionData});
 	}
 
 	onCompetitorCardChangeScore(score, id, matchNumber) {

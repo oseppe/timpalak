@@ -1,42 +1,18 @@
 import React, { Component } from 'react'
+import { connect } from 'react-redux';
+import { CHANGE_NAME } from '../../actionTypes';
 
 class CompetitorName extends Component {
 	constructor(props) {
 		super(props);
 
-		// this.state = {
-		// 	name: this.props.name,
-		// 	inputDisplay: 'none',
-		// 	textDisplay: ''
-		// }
-
-		// this.handleChange = this.handleChange.bind(this);
-		// this.handleKeyPress = this.handleKeyPress.bind(this);
-		// this.handleMouseClick = this.handleMouseClick.bind(this);
+		this.handleChange = this.handleChange.bind(this);
 	}
 
-	// componentWillReceiveProps(nextProps) {
-	// 	if (nextProps.name === this.props.name) return;
-
-	// 	const name = nextProps.name;
-	// 	this.setState({ name });
-	// }
-
-	// handleChange(e) {
-	// 	const name = e.target.value;
-	// 	this.props.onCompetitorCardChangeName(name, this.props.id);
- //    this.setState({ name });
- //  }
-
- //  handleKeyPress(e) {
- //  	if (e.key === 'Enter') {
-	// 		this.setState({ inputDisplay: 'none', textDisplay: '' });  		
- //  	}
- //  }
-
-	// handleMouseClick() {
-	// 	this.setState({ inputDisplay: '', textDisplay: 'none' });
-	// }
+	handleChange(e) {
+		const name = e.target.value;
+		this.props.changeName(name, this.props.playerId);
+	}
 
 	render() {
 		return(
@@ -45,13 +21,22 @@ class CompetitorName extends Component {
 				padding: "5px"
 			}}>
 				<div >
-					{this.props.name}
+					<input type='text'
+						defaultValue={this.props.player.name} 
+						onChange={this.handleChange}
+						style={{
+							height: 'inherit',
+							margin: 0,
+							borderBottom: 'none',
+						}}/>		
 				</div>
 				
 			</div>
 		)
 	}
 }
+
+// {this.props.player.name}
 
 // backgroundColor: `${this.props.backgroundColor}`,
 
@@ -74,5 +59,21 @@ class CompetitorName extends Component {
 //	}}/>
 //</div>
 
-export default CompetitorName;
+const changeName = (name, id) => ({
+	type: CHANGE_NAME,
+	name,
+	id
+})
+
+const mapDispatchToProps = ({
+	changeName
+})
+
+function mapStateToProps(state, props) {
+	const player = props.playerId === '' ? { name: ''} : state.players[props.playerId];
+
+	return { player }
+}
+
+export default  connect(mapStateToProps, mapDispatchToProps)(CompetitorName);
 
