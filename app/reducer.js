@@ -1,4 +1,4 @@
-import {CHANGE_NAME, MOUSE_ENTER_COMPETITOR_CARD, MOUSE_LEAVE_COMPETITOR_CARD, CHANGE_SCORE, START_MATCH, START_NEW_COMPETITION, SHOW_SAVE_ID} from './actionTypes';
+import {CHANGE_NAME, MOUSE_ENTER_COMPETITOR_CARD, MOUSE_LEAVE_COMPETITOR_CARD, CHANGE_SCORE, START_MATCH, START_NEW_COMPETITION, SHOW_SAVE_ID, LOAD_COMPETITION} from './actionTypes';
 import { generateCompetitors, nextMatchNumber, nextMatchCompetitorNumber, buildData } from './utility/utility'
 
 export default (state={}, action) => {
@@ -20,6 +20,11 @@ export default (state={}, action) => {
 			});
 
 			return newState;
+
+		case LOAD_COMPETITION: {
+			console.log('load competition');
+			return newState;
+		}
 
 		case MOUSE_ENTER_COMPETITOR_CARD: {
 			if (action.playerId.trim() === '') return newState;
@@ -60,11 +65,12 @@ export default (state={}, action) => {
 
 			return newState;
 
-		case START_NEW_COMPETITION: 
+		case START_NEW_COMPETITION: {
 			const competitors = generateCompetitors();
 			const data = buildData(competitors);
-
-			return Object.assign({}, data);
+			
+			return Object.assign({}, data, { saveKeys: [] });
+		}
 		default:
 			return state;
 	}
