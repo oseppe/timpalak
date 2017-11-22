@@ -24,10 +24,47 @@ class Board extends Component {
 				<div className="row" style={{
 					paddingTop: '10px',
 				}}>
-					<div className="col s12 m12 l12 center-align">
+					<div className="col s12 m6 offset-m3 l4 offset-l4">
 						<button className="btn waves-effect waves-light" onClick={ handleStartNew }>
 							Restart
 						</button>
+						<button className="btn waves-effect waves-light" style={{
+							marginLeft: '7px',
+							marginRight: '7px'
+						}}>
+							Save
+						</button>
+						<button className="btn waves-effect waves-light">
+							Load
+						</button>
+					</div>
+				</div>
+				<div className="row">
+					<div className="col s12 m6 offset-m3 l4 offset-l4">
+						<div className="row">
+							<div className="col s8 m9 l9" style={{
+								padding: 0,
+							}}>
+								<input type="text" value='sample-id-code' readOnly />
+							</div>
+							<div className="col s4 m3 l3">
+								<button className="grey btn-flat">
+									<i className="material-icons">content_copy</i>
+								</button>
+							</div>
+						</div>
+						<div className="row">
+							<div className="col s8 m9 l9" style={{
+								padding: 0,
+							}}>
+								<input type="text" />
+							</div>
+							<div className="col s4 m3 l3">
+								<button className="grey btn-flat">
+									<i className="material-icons">arrow_forward</i>
+								</button>
+							</div>
+						</div>
 					</div>
 				</div>
 				<div className="row">
@@ -37,6 +74,8 @@ class Board extends Component {
 		)
 	}
 }
+
+// <div className="col s12 m12 l12 center-align">
 
 const startNewCompetition = {type: START_NEW_COMPETITION};
 
