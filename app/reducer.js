@@ -1,9 +1,9 @@
-import {CHANGE_NAME, MOUSE_ENTER_COMPETITOR_CARD, MOUSE_LEAVE_COMPETITOR_CARD, CHANGE_SCORE, START_MATCH, START_NEW_COMPETITION} from './actionTypes';
+import {CHANGE_NAME, MOUSE_ENTER_COMPETITOR_CARD, MOUSE_LEAVE_COMPETITOR_CARD, CHANGE_SCORE, START_MATCH, START_NEW_COMPETITION, SHOW_SAVE_ID} from './actionTypes';
 import { generateCompetitors, nextMatchNumber, nextMatchCompetitorNumber, buildData } from './utility/utility'
 
 export default (state={}, action) => {
 	const newState = JSON.parse(JSON.stringify(state));
-
+	
 	switch(action.type) {
 		case CHANGE_NAME: 
 			newState.players[action.id].name = action.name;
@@ -39,7 +39,12 @@ export default (state={}, action) => {
 
 			return newState;
 		}
-			
+		
+		case SHOW_SAVE_ID: {
+			console.log(action.message);
+			return state;
+		}
+
 		case START_MATCH:
 			const match = newState.matches[action.matchId];
 

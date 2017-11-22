@@ -1,7 +1,14 @@
-import { createStore } from 'redux';
+import { createStore, applyMiddleware } from 'redux';
 import { buildCompetitionData, generateCompetitors } from './utility/utility'
 import reducer from './reducer';
+import createSagaMiddleware from 'redux-saga'
 
-export const store = createStore(reducer, 
-	{players: {}, matches: {}, levels: {}}, 
+const sagaMiddleware = createSagaMiddleware();
+const store = createStore(reducer, 
+	{players: {}, matches: {}, levels: {}},
+	applyMiddleware(sagaMiddleware) ,
 	window.devToolsExtension ? window.devToolsExtension() : undefined);
+
+store.runSaga = sagaMiddleware.run;
+
+export default store;

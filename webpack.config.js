@@ -3,9 +3,7 @@ var webpack = require('webpack');
 var BrowserSyncPlugin = require('browser-sync-webpack-plugin');
 
 module.exports = {
-	entry: {
-		js: './index.js'
-	},
+	entry: ['babel-polyfill', './index.js'],
 	output: { path: __dirname, filename: 'bundle.js' },
 	devtool: '#cheap-module-source-map',
 	devServer: {
@@ -30,3 +28,7 @@ module.exports = {
 		})
 	]
 }
+
+// entry: {
+// 	js: './index.js'
+// },

@@ -1,10 +1,10 @@
 import React, { Component } from 'react'
 import { render } from 'react-dom'
 import LevelCard from './components/levelCard/levelCard'
-import { START_NEW_COMPETITION } from './actionTypes';
-import { store } from './store';
+import { RECORD_COMPETITION, START_NEW_COMPETITION } from './actionTypes';
+import store from './store';
 import { Provider, connect } from 'react-redux';
-
+import { rootSaga } from './sagas/stateSagas';
 
 class Board extends Component {
 	render() {
@@ -28,7 +28,7 @@ class Board extends Component {
 						<button className="btn waves-effect waves-light" onClick={ handleStartNew }>
 							Restart
 						</button>
-						<button className="btn waves-effect waves-light" style={{
+						<button className="btn waves-effect waves-light" onClick={ this.props.handleSave } style={{
 							marginLeft: '7px',
 							marginRight: '7px'
 						}}>
@@ -75,9 +75,8 @@ class Board extends Component {
 	}
 }
 
-// <div className="col s12 m12 l12 center-align">
-
-const startNewCompetition = {type: START_NEW_COMPETITION};
+const startNewCompetition = { type: START_NEW_COMPETITION };
+const recordState = { type: RECORD_COMPETITION };
 
 function mapStateToProps(state) {
 	return {
@@ -89,7 +88,8 @@ function mapStateToProps(state) {
 
 function mapDispatchToProps(dispatch) {
 	return {
-		handleStartNew: () => dispatch(startNewCompetition)
+		handleStartNew: () => dispatch(startNewCompetition),
+		handleSave: () => dispatch(recordState),
 	}
 }
 
@@ -97,6 +97,8 @@ let App = connect(
 	mapStateToProps,
 	mapDispatchToProps
 )(Board);
+
+store.runSaga(rootSaga);
 
 render(
 	<Provider store={store}>
