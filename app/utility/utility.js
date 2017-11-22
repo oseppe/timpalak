@@ -105,12 +105,13 @@ function generateCompetitors() {
 	];
 
 	const competitors = [];
+	const rangeEnd = list.length - 1;
 
 	for(let i = 0; i < 16; i++) {
-		let competitor = list[getRandomNumberBetween(0, list.length)];
+		let competitor = list[getRandomNumberBetween(0, rangeEnd)];
 
 		while(competitors.includes(competitor)) {
-			competitor = list[getRandomNumberBetween(0, list.length)];
+			competitor = list[getRandomNumberBetween(0, rangeEnd)];
 		}
 
 		competitors.push(competitor);
