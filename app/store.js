@@ -5,7 +5,7 @@ import createSagaMiddleware from 'redux-saga'
 
 const sagaMiddleware = createSagaMiddleware();
 const store = createStore(reducer, 
-	{players: {}, matches: {}, levels: {}},
+	{ players: {}, matches: {}, levels: {}, saveKeys: [] },
 	applyMiddleware(sagaMiddleware) ,
 	window.devToolsExtension ? window.devToolsExtension() : undefined);
 

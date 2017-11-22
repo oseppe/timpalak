@@ -5,10 +5,12 @@ import { RECORD_COMPETITION, START_NEW_COMPETITION } from './actionTypes';
 import store from './store';
 import { Provider, connect } from 'react-redux';
 import { rootSaga } from './sagas/stateSagas';
+import { db } from './mockDb'
 
 class Board extends Component {
 	render() {
 		const handleStartNew = this.props.handleStartNew;
+		
 		const levelsData = this.props.levels;
 		const levels = [];
 
@@ -45,7 +47,7 @@ class Board extends Component {
 							<div className="col s8 m9 l9" style={{
 								padding: 0,
 							}}>
-								<input type="text" value='sample-id-code' readOnly />
+								<input type="text" value={this.props.saveKey} readOnly />
 							</div>
 							<div className="col s4 m3 l3">
 								<button className="grey btn-flat">
@@ -79,10 +81,12 @@ const startNewCompetition = { type: START_NEW_COMPETITION };
 const recordState = { type: RECORD_COMPETITION };
 
 function mapStateToProps(state) {
+	const saveKeys = state.saveKeys
+	const saveKey = saveKeys.length === 0 ? '' : saveKeys[saveKeys.length - 1];
+
 	return {
-		players: state.players,
-		matches: state.matches,
-		levels: state.levels
+		levels: state.levels,
+		saveKey,
 	}
 }
 

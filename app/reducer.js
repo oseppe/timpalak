@@ -3,7 +3,7 @@ import { generateCompetitors, nextMatchNumber, nextMatchCompetitorNumber, buildD
 
 export default (state={}, action) => {
 	const newState = JSON.parse(JSON.stringify(state));
-	
+
 	switch(action.type) {
 		case CHANGE_NAME: 
 			newState.players[action.id].name = action.name;
@@ -41,8 +41,8 @@ export default (state={}, action) => {
 		}
 		
 		case SHOW_SAVE_ID: {
-			console.log(action.message);
-			return state;
+			newState.saveKeys.push(action.key);
+			return newState;
 		}
 
 		case START_MATCH:
