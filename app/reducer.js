@@ -22,8 +22,12 @@ export default (state={}, action) => {
 			return newState;
 
 		case LOAD_COMPETITION: {
-			console.log('load competition');
-			return newState;
+			
+			if (!action.isKeyValid) return newState;
+
+			const savedState = JSON.parse(action.stringifiedState);
+
+			return savedState;
 		}
 
 		case MOUSE_ENTER_COMPETITOR_CARD: {

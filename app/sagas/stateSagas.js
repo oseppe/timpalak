@@ -17,12 +17,18 @@ function* sagaSaveState() {
 	yield put({type: SHOW_SAVE_ID, key})
 }
 
-function* sagaLoadState() {
+function* sagaLoadState(payload) {
 	yield delay(3000);
+	const key = payload.saveKey;
+	
+	let stringifiedState = '';
 
-	const stringifiedState = db;
+	// slower than 'in' but doesnt check methods from prototype
+	const isKeyValid = db.hasOwnProperty(key);
+	
+	if (isKeyValid) stringifiedState = db[key];
 
-	yield put({type: LOAD_COMPETITION, stringifiedState})
+	yield put({type: LOAD_COMPETITION, stringifiedState, isKeyValid})
 
 }
 

@@ -1,15 +1,38 @@
 import React, { Component } from 'react'
 import { render } from 'react-dom'
 import LevelCard from './components/levelCard/levelCard'
-import { RECORD_COMPETITION, START_NEW_COMPETITION } from './actionTypes';
+import { RECORD_COMPETITION, START_NEW_COMPETITION, GET_SAVED_COMPETITION } from './actionTypes';
 import store from './store';
 import { Provider, connect } from 'react-redux';
 import { rootSaga } from './sagas/stateSagas';
 import { db } from './mockDb'
 
 class Board extends Component {
+
+	constructor(props) {
+		super(props);
+		this.state = {
+			loadKey: ''
+		};
+
+		this.handleLoadKeyOnChange = this.handleLoadKeyOnChange.bind(this);
+		this.handleLoadCompetition = this.handleLoadCompetition.bind(this);
+	}
+
+	handleLoadKeyOnChange(e) {
+		const loadKey = e.target.value;
+
+		this.setState({ loadKey });
+	}
+
+	handleLoadCompetition() {
+		const saveKey = this.state.loadKey;
+		
+		this.props.loadState(saveKey);
+	}
+
 	render() {
-		const handleStartNew = this.props.handleStartNew;
+		const handleStartNew = this.props.startNewCompetition;
 		
 		const levelsData = this.props.levels;
 		const levels = [];
@@ -30,7 +53,7 @@ class Board extends Component {
 						<button className="btn waves-effect waves-light" onClick={ handleStartNew }>
 							Restart
 						</button>
-						<button className="btn waves-effect waves-light" onClick={ this.props.handleSave } style={{
+						<button className="btn waves-effect waves-light" onClick={ this.props.recordState } style={{
 							marginLeft: '7px',
 							marginRight: '7px'
 						}}>
@@ -59,10 +82,10 @@ class Board extends Component {
 							<div className="col s8 m9 l9" style={{
 								padding: 0,
 							}}>
-								<input type="text" />
+								<input type="text" onChange={this.handleLoadKeyOnChange} />
 							</div>
 							<div className="col s4 m3 l3">
-								<button className="grey btn-flat">
+								<button className="grey btn-flat" onClick={ this.handleLoadCompetition }>
 									<i className="material-icons">arrow_forward</i>
 								</button>
 							</div>
@@ -77,8 +100,9 @@ class Board extends Component {
 	}
 }
 
-const startNewCompetition = { type: START_NEW_COMPETITION };
-const recordState = { type: RECORD_COMPETITION };
+const startNewCompetition = () => ({ type: START_NEW_COMPETITION });
+const recordState = () => ({ type: RECORD_COMPETITION });
+const loadState = (saveKey) => ({ type: GET_SAVED_COMPETITION, saveKey });
 
 function mapStateToProps(state) {
 	const saveKeys = state.saveKeys
@@ -90,12 +114,11 @@ function mapStateToProps(state) {
 	}
 }
 
-function mapDispatchToProps(dispatch) {
-	return {
-		handleStartNew: () => dispatch(startNewCompetition),
-		handleSave: () => dispatch(recordState),
-	}
-}
+const mapDispatchToProps = ({
+	startNewCompetition,
+	recordState,
+	loadState,
+})
 
 let App = connect(
 	mapStateToProps,
