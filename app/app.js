@@ -24,6 +24,7 @@ class Board extends Component {
 		this.handleLoadCompetition = this.handleLoadCompetition.bind(this);
 		this.handleOnClickSave = this.handleOnClickSave.bind(this);
 		this.handleOnClickLoad = this.handleOnClickLoad.bind(this);
+		this.handleOnClickCopy = this.handleOnClickCopy.bind(this);
 	}
 
 	handleLoadKeyOnChange(e) {
@@ -45,6 +46,18 @@ class Board extends Component {
 
 	handleOnClickLoad() {
 		this.showInputFor('load');
+	}
+
+	handleOnClickCopy() {
+		this.inputSaveKey.select();
+		try {
+			document.execCommand('copy');
+			this.inputSaveKey.blur();
+			alert('Copied to clipboard');
+		} catch(err) {
+			alert("Can't copy to clipboard");
+		}
+		
 	}
 
 	showInputFor(inputFor) {
@@ -99,10 +112,11 @@ class Board extends Component {
 							<div className="col s8 m9 l9" style={{
 								padding: 0,
 							}}>
-								<input type="text" value={this.props.saveKey} readOnly />
+								<input type="text" value={this.props.saveKey} readOnly 
+									ref={(input) => {this.inputSaveKey = input}}/>
 							</div>
 							<div className="col s4 m3 l3">
-								<button className="grey btn-flat">
+								<button className="grey btn-flat" onClick={ this.handleOnClickCopy }>
 									<i className="material-icons">content_copy</i>
 								</button>
 							</div>
