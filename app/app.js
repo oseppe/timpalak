@@ -11,10 +11,13 @@ class Board extends Component {
 
 	constructor(props) {
 		super(props);
+
+		const displayInputSave = Object.keys(this.props.levels).length === 0 ? 'none' : '';
+
 		this.state = {
 			loadKey: '',
-			displayInputSave: 'none',
 			displayInputLoad: 'none',
+			displayInputSave,
 		};
 
 		this.handleLoadKeyOnChange = this.handleLoadKeyOnChange.bind(this);
@@ -50,6 +53,8 @@ class Board extends Component {
 	}
 
 	render() {
+		// console.log('db: ');
+		// console.log(db);
 		const handleStartNew = this.props.startNewCompetition;
 		
 		const levelsData = this.props.levels;
@@ -131,12 +136,9 @@ const recordState = () => ({ type: RECORD_COMPETITION });
 const loadState = (saveKey) => ({ type: GET_SAVED_COMPETITION, saveKey });
 
 function mapStateToProps(state) {
-	const saveKeys = state.saveKeys
-	const saveKey = saveKeys.length === 0 ? '' : saveKeys[saveKeys.length - 1];
-
 	return {
 		levels: state.levels,
-		saveKey,
+		saveKey: state.saveKey,
 	}
 }
 
