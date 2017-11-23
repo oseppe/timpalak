@@ -12,11 +12,15 @@ class Board extends Component {
 	constructor(props) {
 		super(props);
 		this.state = {
-			loadKey: ''
+			loadKey: '',
+			displayInputSave: 'none',
+			displayInputLoad: 'none',
 		};
 
 		this.handleLoadKeyOnChange = this.handleLoadKeyOnChange.bind(this);
 		this.handleLoadCompetition = this.handleLoadCompetition.bind(this);
+		this.handleOnClickSave = this.handleOnClickSave.bind(this);
+		this.handleOnClickLoad = this.handleOnClickLoad.bind(this);
 	}
 
 	handleLoadKeyOnChange(e) {
@@ -31,6 +35,20 @@ class Board extends Component {
 		this.props.loadState(saveKey);
 	}
 
+	handleOnClickSave() {
+		this.props.recordState();
+		this.showInputFor('save');
+	}
+
+	handleOnClickLoad() {
+		this.showInputFor('load');
+	}
+
+	showInputFor(inputFor) {
+		if (inputFor === 'save') this.setState({displayInputSave: '', displayInputLoad: 'none'});
+		else if (inputFor === 'load') this.setState({displayInputSave: 'none', displayInputLoad: ''});
+	}
+
 	render() {
 		const handleStartNew = this.props.startNewCompetition;
 		
@@ -39,6 +57,8 @@ class Board extends Component {
 
 		const countLevels = Object.keys(levelsData).length;
 		
+		const displayBtnSave = countLevels === 0 ? 'none' : '';
+
 		for (let i = 0; i < countLevels; i++) {
 			levels.push(<LevelCard key={i}
 				matchIds={levelsData[i]} />)
@@ -53,20 +73,24 @@ class Board extends Component {
 						<button className="btn waves-effect waves-light" onClick={ handleStartNew }>
 							Restart
 						</button>
-						<button className="btn waves-effect waves-light" onClick={ this.props.recordState } style={{
+						<button className="btn waves-effect waves-light" onClick={ this.handleOnClickSave } style={{
 							marginLeft: '7px',
-							marginRight: '7px'
+							display: `${displayBtnSave}`,
 						}}>
 							Save
 						</button>
-						<button className="btn waves-effect waves-light">
+						<button className="btn waves-effect waves-light" onClick={ this.handleOnClickLoad } style={{
+							marginLeft: '7px',
+						}}>
 							Load
 						</button>
 					</div>
 				</div>
 				<div className="row">
 					<div className="col s12 m6 offset-m3 l4 offset-l4">
-						<div className="row">
+						<div className="row" style={{
+							display: `${this.state.displayInputSave}`,
+						}}>
 							<div className="col s8 m9 l9" style={{
 								padding: 0,
 							}}>
@@ -78,7 +102,9 @@ class Board extends Component {
 								</button>
 							</div>
 						</div>
-						<div className="row">
+						<div className="row" style={{
+							display: `${this.state.displayInputLoad}`,
+						}}>
 							<div className="col s8 m9 l9" style={{
 								padding: 0,
 							}}>
