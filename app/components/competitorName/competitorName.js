@@ -48,8 +48,8 @@ const mapDispatchToProps = ({
 })
 
 function mapStateToProps(state, props) {
-	const player = props.playerId === '' ? { name: '', hover: false} : state.players[props.playerId];
-	const backgroundColor = player.hover ? '#c0392b' : '';
+	const player = props.playerId === '' ? { name: '' } : state.players[props.playerId];
+	const backgroundColor = props.playerId !== '' && props.playerId === state.hover ? '#c0392b' : '';
 	return { player, backgroundColor }
 }
 

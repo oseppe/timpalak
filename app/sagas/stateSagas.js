@@ -35,11 +35,12 @@ function* sagaLoadState(payload) {
 function* sagaNewState() {
 	yield delay(500);
 
+	const key = generate();
 	const competitors = generateCompetitors();
 	const data = buildData(competitors);
-	const key = generate();
+	data.saveKey = key;
 
-	const state = Object.assign({}, data, { saveKey: key });
+	const state = Object.assign({}, data);
 	const stringifiedState = JSON.stringify(state);
 
 	db[key] = stringifiedState;

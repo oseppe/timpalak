@@ -33,8 +33,7 @@ export default (state={}, action) => {
 		case MOUSE_ENTER_COMPETITOR_CARD: {
 			if (action.playerId.trim() === '') return newState;
 
-			const player = newState.players[action.playerId];
-			player.hover = true;
+			newState.hover = action.playerId;
 
 			return newState;
 		}
@@ -43,8 +42,7 @@ export default (state={}, action) => {
 		case MOUSE_LEAVE_COMPETITOR_CARD: {
 			if (action.playerId.trim() === '') return newState;
 
-			const player = newState.players[action.playerId];
-			player.hover = false;
+			newState.hover = '';
 
 			return newState;
 		}

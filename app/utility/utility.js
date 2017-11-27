@@ -4,16 +4,17 @@ function buildData(playerList) {
 	const matches = buildMatches(players);
 	const levels = buildLevels(matches);
 
-	return { players, matches, levels };
+	return { players, matches, levels, saveKey: '', hover: ''};
 }
 
+
+// { id => { name } }
 function buildPlayers(playerList) {
 	const players = {};
 
 	for (let i =  0; i < playerList.length; i++) {
 		const player = {
 			name: playerList[i],
-			hover: false,
 		}
 		
 		players[`${i}`] = player;
@@ -22,6 +23,15 @@ function buildPlayers(playerList) {
 	return players;
 }
 
+// { 
+// 	id => {
+// 		winner,
+// 		isMatchFought,
+// 		players => {
+// 			id, score
+// 		}
+// 	}			
+// }
 function buildMatches(players) {
 	const matches = {};
 
@@ -62,6 +72,7 @@ function buildMatches(players) {
 	return matches;
 }
 
+// { id => [] }
 function buildLevels(matches) {
 	const levels = {};
 
