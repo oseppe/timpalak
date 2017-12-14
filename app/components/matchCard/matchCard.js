@@ -32,7 +32,6 @@ class MatchCard extends Component {
 				</div>
 				<div className="col s10" style={{
 					backgroundColor: "#34495e",
-					borderRadius: "10px",
 					padding: 0,
 					minHeight: 60,
 					marginBottom: '3px',
